@@ -11,9 +11,11 @@ function User(props) {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3010/user/${user.user_id}/post`)
-      .then((response) => response.json())
-      .then((date) => setPost(date));
+    if (user !== 1 && user !== null) {
+      fetch(`https://insta-tera.herokuapp.com/user/${user.user_id}/post`)
+        .then((response) => response.json())
+        .then((date) => setPost(date));
+    }
   }, [newData]);
 
   return (

@@ -18,7 +18,7 @@ function Home(props) {
   const { newData, user } = useContext(AuthContext);
 
   React.useEffect(() => {
-    fetch(`http://127.0.0.1:3010/post`)
+    fetch(`https://insta-tera.herokuapp.com/post`)
       .then((response) => response.json())
       .then((date) => setUsers(date));
   }, [newData]);
