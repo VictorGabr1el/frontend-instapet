@@ -21,7 +21,7 @@ function Signup() {
   const fileInputRef = useRef();
 
   useEffect(() => {
-    if (imgUser === "") {
+    if (imgUser === "" || imgUser === null) {
       setPreview(null);
     } else {
       const reader = new FileReader();
@@ -74,7 +74,7 @@ function Signup() {
                   src={preview}
                   style={{ objectFit: "cover" }}
                   onClick={() => {
-                    setImgUser(null);
+                    setImgUser("");
                   }}
                 />
               ) : (
