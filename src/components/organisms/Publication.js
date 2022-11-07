@@ -53,7 +53,7 @@ function Publication(props) {
                 />
               ))}
               <div className="div_interations_btn_more-coments">
-                <button className="btn_verComentarios" onClick={fullPost(id)}>
+                <button className="btn_verComentarios" onClick={fullPost}>
                   Ver comentários...
                 </button>
               </div>
