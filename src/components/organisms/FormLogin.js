@@ -47,7 +47,7 @@ function FormLogin() {
             <button className="btn" type="submit">
               Acessar
             </button>
-            <Link className="btn_query_width">
+            <Link to={"/register"} className="btn_query_width">
               <p>Cadastrar</p>
             </Link>
           </form>
