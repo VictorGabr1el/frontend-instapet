@@ -8,7 +8,7 @@ function Postagem(props) {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    fetch(`https://insta-tera.herokuapp.com/post/2`)
+    fetch(`https://insta-tera.herokuapp.com/post/1`)
       .then((response) => response.json())
       .then((date) => setPost(date));
   }, []);

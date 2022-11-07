@@ -1,7 +1,7 @@
 function Btn(props) {
   return (
     <>
-      <button className={props.class} onClick={props.click}>
+      <button id={props.class} onClick={props.click}>
         {props.txt}
       </button>
     </>

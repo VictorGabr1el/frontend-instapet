@@ -135,6 +135,12 @@
   /* margin-left: 7px !important; */
   padding: 9px 12px;
   font-weight: 600;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.btn_global_postagem:hover {
+  background: #5144e4;
 }
 
 .div_interations-user-text-coment p {

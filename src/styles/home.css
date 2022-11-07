@@ -263,6 +263,20 @@
   cursor: pointer;
 }
 
+#btn_global_postagem {
+  background: #6558f5;
+  border: #6558f5;
+  color: white;
+  border-radius: 2px;
+  padding: 9px 12px;
+  font-weight: 600;
+  transition: 0.4s;
+  cursor: pointer;
+}
+#btn_global_postagem:hover {
+  background: #5144e4;
+}
+
 .div_interations_btn_more-coments p {
   margin: 0;
 }
