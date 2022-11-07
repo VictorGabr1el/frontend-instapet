@@ -24,6 +24,7 @@ function BtnComment(props) {
       .then((response) => {
         const Data = response.data;
         updateDataPage(Data);
+        setContent("");
       })
       .catch((error) => {
         console.log(error);
