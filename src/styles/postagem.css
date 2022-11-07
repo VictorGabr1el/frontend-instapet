@@ -1,4 +1,4 @@
-.class_app {
+.class_enable {
   display: flex;
   width: 100%;
   height: 100vh;
@@ -6,6 +6,10 @@
   justify-content: center;
   align-content: center;
   box-sizing: border-box;
+  position: fixed;
+}
+.class_disable {
+  display: none;
 }
 
 .class_post {
@@ -16,6 +20,7 @@
   box-sizing: border-box;
   height: 515px;
   border-radius: 0px 6px 6px 0px;
+  background: white;
 }
 
 .post_div_img {
@@ -32,6 +37,14 @@
   vertical-align: -webkit-baseline-middle;
 }
 
+.post_info_user {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  height: 15%;
+}
+
 .post_interation {
   display: flex;
   flex-direction: column;
@@ -44,16 +57,17 @@
 .div_interation {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 85%;
 }
 
 .legend_comment {
   box-shadow: 0px 0px 1px 0px rgb(110 110 109);
-  height: 100%;
+  height: 85%;
+  overflow: auto;
 }
 
 .post_legend {
-  padding: 8px 12px 40px 12px;
+  padding: 8px 12px 20px 12px;
   box-shadow: 0px 0px 1px 0px rgb(110 110 109);
 }
 
@@ -61,10 +75,12 @@
   padding-inline: 12px;
   margin-top: 10px;
   display: flex;
+  flex-direction: column;
 }
 
 .btn_like_send {
   padding: 10px 12px;
+  height: 6%;
 }
 
 .post_div_user {
@@ -76,8 +92,16 @@
 }
 
 .div_interations_coment {
-  margin-top: 6px;
+  margin: 6px 0;
   display: flex;
+  height: 10%;
+}
+
+.post_div_interations_new-coment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10%;
 }
 
 .div_interations_user-coment img {
@@ -103,14 +127,14 @@
   padding: 6px 8px !important;
 }
 
-.btn_global {
-  background: #6558f5 !important;
-  border: #6558f5 !important;
-  color: white !important;
-  border-radius: 0px 0px 6px 0px !important;
+.btn_global_postagem {
+  background: #6558f5;
+  border: #6558f5;
+  color: white;
+  border-radius: 0px 0px 6px 0px;
   /* margin-left: 7px !important; */
-  padding: 9px 12px !important;
-  font-weight: 600 !important;
+  padding: 9px 12px;
+  font-weight: 600;
 }
 
 .div_interations-user-text-coment p {

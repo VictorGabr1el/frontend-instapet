@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom/client";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -5,6 +6,17 @@ import ImgPerfil from "../atoms/ImgPerfil";
 import { SVGs, Comment, BtnComment } from "../molecules";
 
 function Publication(props) {
+  const fullPost = async () => {
+    const close = await document.querySelector(".class_disable");
+    close.classList.replace("class_disable", "class_enable");
+
+    const body = await document.querySelector("body");
+    body.style.overflow = "hidden";
+
+    const opac = await document.querySelector(".enable_opacity");
+    opac.style.opacity = "50%";
+  };
+
   return (
     <>
       {props.user.map((users) => (
@@ -41,7 +53,7 @@ function Publication(props) {
                 />
               ))}
               <div className="div_interations_btn_more-coments">
-                <button className="btn_verComentarios">
+                <button className="btn_verComentarios" onClick={fullPost(id)}>
                   Ver comentários...
                 </button>
               </div>

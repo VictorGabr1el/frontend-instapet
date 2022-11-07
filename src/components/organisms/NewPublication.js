@@ -1,16 +1,13 @@
 import { storage } from "../../services/firebase.js";
-import {
-  ref,
-  getDownloadURL,
-  uploadBytesResumable,
-  connectStorageEmulator,
-} from "firebase/storage";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useState, useEffect, useRef, useContext } from "react";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
+import img from "../../img/close.svg";
+
 function NewPublication() {
-  const { user, updatetimeline } = useContext(AuthContext);
+  const { user, updateDataPage } = useContext(AuthContext);
 
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(null);
@@ -25,6 +22,12 @@ function NewPublication() {
 
     const div = await document.querySelector(".new_publication_enable");
     div.classList.replace("new_publication_enable", "new_publication_disable");
+
+    const body = await document.querySelector("body");
+    body.style.overflow = "";
+
+    const opac = await document.querySelector(".enable_opacity");
+    opac.style.opacity = "";
   };
 
   useEffect(() => {
@@ -60,7 +63,7 @@ function NewPublication() {
             .post(`/user/${user.user_id}/post`, data)
             .then((response) => {
               const result = response.data;
-              updatetimeline(result);
+              updateDataPage(result);
             })
             .catch((error) => {
               console.log(error);
@@ -84,7 +87,7 @@ function NewPublication() {
               onClick={closeModal}
               className="btn_disable_modal_new_publication"
             >
-              X
+              <img src={img} />
             </button>
           </div>
           <div className="new_publication_img_post">

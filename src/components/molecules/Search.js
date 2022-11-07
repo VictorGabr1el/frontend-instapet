@@ -14,6 +14,12 @@ function Search(props) {
   async function newPost() {
     const div = await document.querySelector(".new_publication_disable");
     div.classList.replace("new_publication_disable", "new_publication_enable");
+
+    const body = await document.querySelector("body");
+    body.style.overflow = "hidden";
+
+    const opac = await document.querySelector(".enable_opacity");
+    opac.style.opacity = "50%";
   }
 
   return (
@@ -29,7 +35,7 @@ function Search(props) {
         <Link onClick={Singout}>
           <img className="nav_img_signout" src={signout} alt="" />
         </Link>
-        <Link>
+        <Link to={"/home"}>
           <img className="nav_img" src={house} alt="" />
         </Link>
         <img

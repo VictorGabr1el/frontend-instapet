@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(1);
-  const [post, setPost] = useState([]);
+  const [newData, setNewData] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("@Auth:token");
@@ -66,14 +66,16 @@ export const AuthProvider = ({ children }) => {
         ] = `Bearer ${response.data.token}`;
 
         localStorage.setItem("@Auth:token", response.data.token);
+
+        return <Navigate to="/home" />;
       }
     } catch (response) {
       return alert(response.response.data.message);
     }
   };
 
-  const updatetimeline = (data) => {
-    setPost(data);
+  const updateDataPage = (data) => {
+    setNewData(data);
   };
 
   const Singout = () => {
@@ -90,9 +92,9 @@ export const AuthProvider = ({ children }) => {
         Signin,
         Signup,
         Singout,
-        updatetimeline,
+        updateDataPage,
         signed: !!user,
-        post,
+        newData,
       }}
     >
       {children}

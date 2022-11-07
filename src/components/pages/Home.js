@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-import "../../styles/index.css";
+import "../../styles/home.css";
 
 import {
   Header,
@@ -10,21 +10,22 @@ import {
   NewPublication,
   Status,
 } from "../organisms/index.js";
+import Postagem from "../organisms/Postagem";
 
 function Home(props) {
   const [users, setUsers] = React.useState([]);
 
-  const { post, user } = useContext(AuthContext);
+  const { newData, user } = useContext(AuthContext);
 
   React.useEffect(() => {
     fetch(`http://127.0.0.1:3010/post`)
       .then((response) => response.json())
       .then((date) => setUsers(date));
-  }, [post]);
+  }, [newData]);
 
   return (
     <div className="class_body">
-      <div>
+      <div className="enable_opacity">
         <Header userSigned={user} />
         <main className="class_main">
           <div className="flex-container">
@@ -32,7 +33,7 @@ function Home(props) {
               <Status user={user} />
               {/* <!---------- Publicações ---------> */}
               <div className="all-publications">
-                <Publication user={users} />
+                {users.length !== 0 ? <Publication user={users} /> : <></>}
               </div>
             </section>
             {/* <!------- sidebar -------> */}
@@ -41,6 +42,9 @@ function Home(props) {
         </main>
       </div>
       <NewPublication />
+      <>
+        <Postagem />
+      </>
     </div>
   );
 }

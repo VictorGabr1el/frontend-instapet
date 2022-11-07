@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Btn } from "../atoms";
 
 function BtnComment(props) {
-  const { updatetimeline, user } = useContext(AuthContext);
+  const { updateDataPage, user } = useContext(AuthContext);
 
   const [content, setContent] = useState("");
 
@@ -23,7 +23,7 @@ function BtnComment(props) {
       .post(`/user/${user.user_id}/post/${props.postId}/comment`, data)
       .then((response) => {
         const Data = response.data;
-        updatetimeline(Data);
+        updateDataPage(Data);
       })
       .catch((error) => {
         console.log(error);
@@ -39,7 +39,11 @@ function BtnComment(props) {
           onChange={(e) => setContent(e.target.value)}
           placeholder="adicione um comentário"
         />
-        <Btn click={newComment} txt={"Publicar"} />
+        <Btn
+          class={"btn_global_postagem"}
+          click={newComment}
+          txt={"Publicar"}
+        />
       </div>
     </>
   );

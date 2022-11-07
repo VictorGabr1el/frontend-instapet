@@ -23,6 +23,7 @@
   border-radius: 2px;
   margin-left: 7px;
   padding: 5px 12px;
+  cursor: pointer;
 }
 
 /* ---------- Cabeçalho ---------- */
@@ -31,6 +32,8 @@
   width: 100%;
   background: white;
   box-shadow: 0px 0px 2px 0px lightslategrey;
+  display: flex;
+  justify-content: center;
 }
 
 .class_nav {
@@ -39,6 +42,8 @@
   padding: 10px 20px;
   align-items: center;
   box-sizing: border-box;
+  max-width: 1100px;
+  width: inherit;
 }
 
 .title_home {
@@ -63,11 +68,13 @@
 .nav_img {
   width: 30px;
   margin-right: 22px;
+  cursor: pointer;
 }
 
 .nav_img_signout {
   width: 28px;
   margin-right: 24px;
+  cursor: pointer;
 }
 
 .nav_img_user {
@@ -76,6 +83,7 @@
   background-image: url("../img/avatar-person.svg");
   border-radius: 100%;
   border: solid 1px lightslategrey;
+  background-repeat: no-repeat;
 }
 
 /* ------------ main ----------- */
@@ -120,7 +128,6 @@
 }
 
 .status {
-  width: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,6 +260,7 @@
   background: none;
   border: none;
   color: #6e6e6e;
+  cursor: pointer;
 }
 
 .div_interations_btn_more-coments p {
@@ -282,7 +290,7 @@
   color: white;
   border-radius: 2px;
   margin-left: 7px;
-  padding: 5px 12px;
+  padding: 8px 12px;
 }
 
 /* --------------- sidebar ---------------- */
@@ -327,9 +335,11 @@
   justify-content: space-between;
 }
 
-.novas-sugestoes div {
+.user_sugestoes {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: black;
 }
 
 .novas-sugestoes div img {
@@ -362,6 +372,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .new_publication_margin {
   margin: 20px;
   background: white;
@@ -374,15 +385,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 0px 2px 0px green;
   border-radius: 7px;
   box-sizing: border-box;
+  border: solid 1px #333;
 }
 
 .new_publication_title {
-  background: #5c9b5c;
+  background: #f7f7f7;
   display: flex;
-  color: white;
+  color: black;
   width: 100%;
   height: 9%;
   border-radius: 6px 6px 0 0;
@@ -419,6 +430,7 @@
   background-position: center;
   opacity: 70%;
   background-size: 50px;
+  cursor: pointer;
 }
 
 .new_publication_legenda {
@@ -436,6 +448,7 @@
   font-family: inherit;
   font-size: inherit;
   padding: 2px 6px;
+  outline: none;
 }
 
 .new_publication_publicar {
@@ -456,19 +469,35 @@
   font-size: larger;
   font-weight: 500;
   border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  outline: none;
 }
+.new_publication_publicar button:hover {
+  background: #5b4ded;
+  border: #5b4ded;
+}
+
 .btn_disable_modal_new_publication {
-  background: #6558f5;
-  border: #6558f5;
+  background: #f7f7f7;
+  border: #f7f7f7;
   color: white;
   padding: 0px 13px;
   font-size: larger;
   font-weight: 600;
   border-radius: 0px 7px 0px 0px;
+  cursor: pointer;
+}
+.btn_disable_modal_new_publication img:hover {
+  background: #a1a1a1;
+  border-radius: 100%;
 }
 
 .new_publication_disable {
   display: none;
+  transition: 1s ease;
+}
+.new_publication_disable:hover {
+  opacity: 0 1;
 }
 
 .publication_display_none {

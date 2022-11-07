@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ImgPerfil from "../atoms/ImgPerfil";
 import Btn from "../atoms/Btn";
 
@@ -6,8 +7,10 @@ function UserSugestao(props) {
     <>
       <div className="novas-sugestoes">
         <div>
-          <ImgPerfil avatar={props.avatar} />
-          <p>{props.username}</p>
+          <Link to={"/home/user"} className="user_sugestoes">
+            <ImgPerfil avatar={props.avatar} />
+            <p>{props.username}</p>
+          </Link>
         </div>
         <Btn txt={"seguir"} />
       </div>
