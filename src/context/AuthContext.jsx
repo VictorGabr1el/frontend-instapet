@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
           },
         })
         .then((response) => {
-          setUser(response.data[0]);
+          setUser(response.data);
         })
         .catch((error) => {
           localStorage.clear();

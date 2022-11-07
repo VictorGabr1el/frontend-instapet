@@ -55,13 +55,18 @@ function User(props) {
           <div className="div_titule_publications">
             <p>PUBLICAÇÔES</p>
           </div>
-          {post.map((posts) => (
-            <div className="user_all_publications">
-              <div className="user_all_publications_img" key={posts.post_id}>
-                <img src={posts.img_post}></img>
-              </div>
-            </div>
-          ))}
+
+          <div className="user_all_publications">
+            {post.length > 0 ? (
+              post.map((posts) => (
+                <div className="user_all_publications_img" key={posts.post_id}>
+                  <img src={posts.img_post}></img>
+                </div>
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
         </section>
       </main>
     </div>

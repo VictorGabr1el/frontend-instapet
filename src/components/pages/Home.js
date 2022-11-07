@@ -23,6 +23,8 @@ function Home(props) {
       .then((date) => setUsers(date));
   }, [newData]);
 
+  console.log();
+
   return (
     <div className="class_body">
       <div className="enable_opacity">
@@ -37,7 +39,7 @@ function Home(props) {
               </div>
             </section>
             {/* <!------- sidebar -------> */}
-            <Sugestoes userSigned={user} />
+            {user !== {} ? <Sugestoes userSigned={user} /> : <></>}
           </div>
         </main>
       </div>
