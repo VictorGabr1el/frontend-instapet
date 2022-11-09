@@ -28,7 +28,12 @@ function Signup() {
       reader.onloadend = () => {
         setPreview(reader.result);
       };
-      reader.readAsDataURL(imgUser);
+
+      if (!imgUser) {
+        setPreview(null);
+      } else {
+        reader.readAsDataURL(imgUser);
+      }
     }
   }, [imgUser]);
 
