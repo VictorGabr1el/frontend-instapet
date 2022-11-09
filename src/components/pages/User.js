@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ImgPerfil } from "../atoms";
-import { Header } from "../organisms";
+import { Header, Loading } from "../organisms";
 import { AuthContext } from "../../context/AuthContext";
 
 import "../../styles/user.css";
@@ -9,16 +9,22 @@ function User(props) {
   const { user, newData } = useContext(AuthContext);
 
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user !== 1 && user !== null) {
       fetch(`https://insta-tera.herokuapp.com/user/${user.user_id}/post`)
         .then((response) => response.json())
-        .then((date) => setPost(date));
+        .then((date) => {
+          setPost(date);
+          setLoading(false);
+        });
     }
   }, [newData]);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="class_body">
       <Header userSigned={user} />
       <main className="user_main">

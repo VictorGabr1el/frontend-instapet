@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import "../../styles/home.css";
@@ -10,22 +10,26 @@ import {
   NewPublication,
   Status,
 } from "../organisms/index.js";
-import Postagem from "../organisms/Postagem";
+import { Postagem, Loading } from "../organisms/index.js";
 
 function Home(props) {
-  const [users, setUsers] = React.useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { newData, user } = useContext(AuthContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch(`https://insta-tera.herokuapp.com/post`)
       .then((response) => response.json())
-      .then((date) => setUsers(date));
+      .then((date) => {
+        setUsers(date);
+        setLoading(false);
+      });
   }, [newData]);
 
-  console.log();
-
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="class_body">
       <div className="enable_opacity">
         <Header userSigned={user} />
@@ -35,11 +39,11 @@ function Home(props) {
               <Status user={user} />
               {/* <!---------- Publicações ---------> */}
               <div className="all-publications">
-                {users.length !== 0 ? <Publication user={users} /> : <></>}
+                <Publication user={users} />
               </div>
             </section>
             {/* <!------- sidebar -------> */}
-            {user !== {} ? <Sugestoes userSigned={user} /> : <></>}
+            <Sugestoes userSigned={user} />
           </div>
         </main>
       </div>

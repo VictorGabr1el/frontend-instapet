@@ -9,7 +9,7 @@ import add from "../../img/Add.svg";
 import signout from "../../img/signout.svg";
 
 function Search(props) {
-  const { Singout } = useContext(AuthContext);
+  const { Singout, user } = useContext(AuthContext);
 
   async function newPost() {
     const div = await document.querySelector(".new_publication_disable");
@@ -45,7 +45,7 @@ function Search(props) {
           alt=""
           id="btnAdd"
         />
-        <Link to={"/home/user"}>
+        <Link to={`/user/${user.user_id}`}>
           <ImgPerfil avatar={props.avatar} />
         </Link>
       </div>
