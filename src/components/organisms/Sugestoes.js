@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { ImgPerfil } from "../atoms";
 import UserSugestao from "../molecules/UserSugestao";
 
@@ -16,8 +17,10 @@ function Sugestoes(props) {
       <aside className="div-informacoes-user">
         <div>
           <div className="mini-perfil-user">
-            <ImgPerfil avatar={props.userSigned.avatar} />
-            <p>{props.userSigned.username}</p>
+            <Link to={`/user/${props.userSigned.user_id}`}>
+              <ImgPerfil avatar={props.userSigned.avatar} />
+              <p>{props.userSigned.username}</p>
+            </Link>
           </div>
           <div className="div-sugestoes">
             <div className="sugestoes_p">
@@ -26,6 +29,7 @@ function Sugestoes(props) {
             <div>
               {user.map((users) => (
                 <UserSugestao
+                  userId={users.user_id}
                   avatar={users.avatar}
                   username={users.username}
                   key={users.user_id}

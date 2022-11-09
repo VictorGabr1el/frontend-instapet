@@ -22,7 +22,7 @@ function Publication(props) {
       {props.user.map((users) => (
         <article className="publication" key={users.post_id}>
           <div className="div_user_publication">
-            <Link to={`/home/${users.User.user_id}`}>
+            <Link to={`/user/${users.User.user_id}`}>
               <ImgPerfil avatar={users.User.avatar} />
             </Link>
             <p>{users.User.username}</p>
@@ -47,6 +47,7 @@ function Publication(props) {
               {users.Comments.map((C) => (
                 <Comment
                   key={C.comment_id}
+                  userId={C.User.user_id}
                   avatar={C.User.avatar}
                   username={C.User.username}
                   content={C.content}

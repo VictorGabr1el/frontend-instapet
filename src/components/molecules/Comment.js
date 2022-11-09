@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ImgPerfil } from "../atoms";
 
 function Comment(props) {
@@ -5,7 +6,9 @@ function Comment(props) {
     <>
       <div className="div_interations_coment">
         <div className="div_interations_user-coment">
-          <ImgPerfil avatar={props.avatar} />
+          <Link to={`/user/${props.userId}`}>
+            <ImgPerfil avatar={props.avatar} />
+          </Link>
         </div>
         <div className="div_interations-user-text-coment">
           <p className="div_interations-userName-coment">{props.username}</p>

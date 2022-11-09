@@ -7,7 +7,7 @@ function UserSugestao(props) {
     <>
       <div className="novas-sugestoes">
         <div>
-          <Link to={"/home/user"} className="user_sugestoes">
+          <Link to={`/user/${props.userId}`} className="user_sugestoes">
             <ImgPerfil avatar={props.avatar} />
             <p>{props.username}</p>
           </Link>
