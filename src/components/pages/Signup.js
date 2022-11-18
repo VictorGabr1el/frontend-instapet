@@ -1,14 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Navigate } from "react-router-dom";
-import { storage } from "../../services/firebase.js";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { Navigate, Link } from "react-router-dom";
 
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.jsx";
 import "../../styles/signup.css";
-import { Link } from "react-router-dom";
+import { Resize } from "../../services/Resize.js";
 
 function Signup() {
-  const { Signup, signed } = useContext(AuthContext);
+  const { signed, Signup } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -33,6 +31,7 @@ function Signup() {
         setPreview(null);
       } else {
         reader.readAsDataURL(imgUser);
+        console.log(imgUser);
       }
     }
   }, [imgUser]);
@@ -40,31 +39,30 @@ function Signup() {
   const newUser = (e) => {
     e.preventDefault();
 
-    const storageRef = ref(storage, `images/${imgUser.name}`);
+    const src = URL.createObjectURL(imgUser);
 
-    uploadBytes(storageRef, imgUser).then(() => {
-      getDownloadURL(storageRef)
-        .then((downloadURL) => {
-          if (!downloadURL) {
-            return console.error();
-          } else {
-            const data = {
-              name,
-              username,
-              avatar: downloadURL,
-              email,
-              password,
-              confirmPass,
-            };
-            console.log(downloadURL);
+    const img = new Image();
+    img.src = src;
 
-            Signup(data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
+    img.onload = function () {
+      const ww =
+        imgUser.size > 613051
+          ? (this.width / 100) * 50
+          : (this.width / 100) * 80;
+
+      console.log(ww, this.width);
+      Resize({ src, ww }).then((downloadURL) => {
+        const data = {
+          name,
+          username,
+          email,
+          avatar: downloadURL,
+          password,
+          confirmPass,
+        };
+        Signup(data);
+      });
+    };
   };
 
   if (!signed) {

@@ -5,7 +5,7 @@ import { api } from "../services/api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(1);
+  const [user, setUser] = useState(true);
   const [newData, setNewData] = useState([]);
 
   useEffect(() => {

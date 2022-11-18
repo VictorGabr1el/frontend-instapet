@@ -4,8 +4,6 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-import img from "../../img/close.svg";
-
 function NewPublication() {
   const { user, updateDataPage } = useContext(AuthContext);
 
@@ -15,11 +13,7 @@ function NewPublication() {
   const fileInputRef = useRef();
   const [legend, setLegend] = useState(null);
 
-  const closeModal = async (e) => {
-    e.preventDefault();
-    setPreview(null);
-    setImgURL("");
-
+  const btnClose = async () => {
     const div = await document.querySelector(".new_publication_enable");
     div.classList.replace("new_publication_enable", "new_publication_disable");
 
@@ -80,15 +74,10 @@ function NewPublication() {
   return (
     <>
       <div className="new_publication_disable">
+        <div className="nnn" onClick={btnClose}></div>
         <form onSubmit={Submit} className="new_publication_margin">
           <div className="new_publication_title">
             <p>Nova publicação</p>
-            <button
-              onClick={closeModal}
-              className="btn_disable_modal_new_publication"
-            >
-              <img src={img} />
-            </button>
           </div>
           <div className="new_publication_img_post">
             {preview ? (
