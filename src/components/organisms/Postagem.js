@@ -1,14 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
-import "../../styles/postagem.css";
+import React, { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 import ImgPerfil from "../atoms/ImgPerfil";
-import { BtnComment, Comment, SVGs } from "../molecules";
+import { BtnComment, Comment } from "../molecules";
+
+import like from "../../img/like.svg";
+import send from "../../img/send-fill.svg";
+import "../../styles/postagem.css";
 
 function Postagem(props) {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    fetch(`https://insta-tera.herokuapp.com/post/1`)
+    const token = localStorage.getItem("@Auth:token");
+    api
+      .get("/post", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => response.json())
       .then((date) => setPost(date));
   }, []);
@@ -49,7 +59,14 @@ function Postagem(props) {
                 </div>
                 <div className="btn_like_send">
                   <div className="div_interations_emogis">
-                    <SVGs />
+                    <ul>
+                      <li>
+                        <img src={like} alt="" />
+                      </li>
+                      <li>
+                        <img src={send} alt="" />
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 <BtnComment />

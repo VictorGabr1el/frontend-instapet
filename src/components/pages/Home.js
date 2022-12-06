@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { api } from "../../services/api";
 
 import "../../styles/home.css";
 
@@ -19,10 +20,16 @@ function Home(props) {
   const { newData, user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`https://insta-tera.herokuapp.com/post`)
-      .then((response) => response.json())
-      .then((date) => {
-        setUsers(date);
+    const token = localStorage.getItem("@Auth:token");
+    api
+      .get("/post", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUsers(response.data);
+        console.log(response.data);
         setLoading(false);
       });
   }, [newData]);
@@ -36,7 +43,7 @@ function Home(props) {
         <main className="class_main">
           <div className="flex-container">
             <section className="section_publications">
-              <Status user={user} />
+              <Status />
               {/* <!---------- Publicações ---------> */}
               <div className="all-publications">
                 <Publication user={users} />
@@ -48,9 +55,7 @@ function Home(props) {
         </main>
       </div>
       <NewPublication />
-      <>
-        <Postagem />
-      </>
+      <>{/* <Postagem /> */}</>
     </div>
   );
 }

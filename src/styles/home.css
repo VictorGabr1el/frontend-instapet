@@ -10,6 +10,8 @@
 .class_body {
   padding: 0;
   margin: 0;
+  background: #dfe6ed;
+  height: 100vh;
   box-sizing: border-box;
   font-family: system-ui;
   display: flex;
@@ -141,8 +143,8 @@
 .status img {
   border-radius: 100px;
   background-image: url("../img/avatar-person.svg");
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border: solid 1px lightslategrey;
 }
 .status p {

@@ -1,9 +1,11 @@
-import ReactDOM from "react-dom/client";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import ImgPerfil from "../atoms/ImgPerfil";
-import { SVGs, Comment, BtnComment } from "../molecules";
+import { Comment, BtnComment } from "../molecules";
+
+import like from "../../img/like.svg";
+import send from "../../img/send-fill.svg";
 
 function Publication(props) {
   const fullPost = async () => {
@@ -20,9 +22,9 @@ function Publication(props) {
   return (
     <>
       {props.user.map((users) => (
-        <article className="publication" key={users.post_id}>
+        <article className="publication" key={users.id}>
           <div className="div_user_publication">
-            <Link to={`/user/${users.User.user_id}`}>
+            <Link to={`/user/${users.User.id}`}>
               <ImgPerfil avatar={users.User.avatar} />
             </Link>
             <p>{users.User.username}</p>
@@ -32,7 +34,14 @@ function Publication(props) {
           </div>
           <div className="div_interations">
             <div className="div_interations_emogis">
-              <SVGs />
+              <ul>
+                <li>
+                  <img src={like} alt="" />
+                </li>
+                <li>
+                  <img src={send} alt="" />
+                </li>
+              </ul>
             </div>
             <div className="div_interations_legend">
               <p>
@@ -46,8 +55,8 @@ function Publication(props) {
             <div>
               {users.Comments.map((C) => (
                 <Comment
-                  key={C.comment_id}
-                  userId={C.User.user_id}
+                  key={C.id}
+                  userId={C.User.id}
                   avatar={C.User.avatar}
                   username={C.User.username}
                   content={C.content}
@@ -59,7 +68,7 @@ function Publication(props) {
                 </button>
               </div>
             </div>
-            <BtnComment postId={users.post_id} />
+            <BtnComment postId={users.id} />
           </div>
         </article>
       ))}

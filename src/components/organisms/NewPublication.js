@@ -1,15 +1,13 @@
-import { storage } from "../../services/firebase.js";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useState, useEffect, useRef, useContext } from "react";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import { Resize } from "../../services/Resize.js";
 
 function NewPublication() {
-  const { user, updateDataPage } = useContext(AuthContext);
+  const { updateDataPage } = useContext(AuthContext);
 
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(null);
-  const [imgURL, setImgURL] = useState(null);
   const fileInputRef = useRef();
   const [legend, setLegend] = useState(null);
 
@@ -29,6 +27,7 @@ function NewPublication() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
+        console.log(image);
       };
       reader.readAsDataURL(image);
     } else {
@@ -36,39 +35,57 @@ function NewPublication() {
     }
   }, [image]);
 
-  const Submit = (event) => {
-    event.preventDefault();
+  const Submit = (e) => {
+    e.preventDefault();
 
-    const storageRef = ref(storage, `images/${image.name}`);
+    const src = URL.createObjectURL(image);
 
-    const upload = uploadBytesResumable(storageRef, image);
+    const img = new Image();
+    img.src = src;
 
-    getDownloadURL(upload.snapshot.ref)
-      .then(async (downloadURL) => {
-        setImgURL(downloadURL);
+    console.log(img);
 
-        if (downloadURL) {
+    img.onload = function () {
+      const ww =
+        image.size < 513051
+          ? (this.width / 100) * 95
+          : image.size >= 513051 && image.size < 613051
+          ? (this.width / 100) * 90
+          : image.size >= 613051 && image.size < 893051
+          ? (this.width / 100) * 80
+          : image.size >= 893051 && image.size < 1189990
+          ? (this.width / 100) * 50
+          : (this.width / 100) * 40;
+      console.log(ww);
+
+      Resize({ src, ww })
+        .then((downloadURL) => {
           const data = {
             img: downloadURL,
             legend: legend,
           };
 
+          const token = localStorage.getItem("@Auth:token");
+
           api
-            .post(`/user/${user.user_id}/post`, data)
+            .post("/post", data, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
             .then((response) => {
-              const result = response.data;
-              updateDataPage(result);
+              console.log(response);
+              updateDataPage(response.data);
+              btnClose();
             })
             .catch((error) => {
               console.log(error);
             });
-        }
-
-        return console.error();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
   };
 
   return (
@@ -83,6 +100,7 @@ function NewPublication() {
             {preview ? (
               <img
                 className="renderImg"
+                alt="imagem da postagem"
                 src={preview}
                 style={{ objectFit: "cover" }}
                 onClick={() => {

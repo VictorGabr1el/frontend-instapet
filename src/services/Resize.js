@@ -4,28 +4,6 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 export const Resize = ({ src, ww }) => {
   console.log(src, ww);
 
-  const exec = resizeImage(src, { width: ww }).then(function (blob) {
-    console.log(blob);
-
-    const storageRef = ref(storage, `images/${src}`);
-
-    uploadBytes(storageRef, blob).then(() => {
-      getDownloadURL(storageRef)
-        .then((downloadURL) => {
-          if (!downloadURL) {
-            return console.error("erro");
-          } else {
-            console.log(downloadURL);
-
-            return downloadURL;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-  });
-
   function resizeImage(src, options) {
     return loadImage(document.createElement("img"), src).then(function (image) {
       const canvas = document.createElement("canvas");
@@ -67,5 +45,27 @@ export const Resize = ({ src, ww }) => {
     });
   }
 
-  return exec;
+  return new Promise((resolve) => {
+    resizeImage(src, { width: ww }).then(function (blob) {
+      console.log(blob);
+
+      const storageRef = ref(storage, `images/${src}`);
+
+      uploadBytes(storageRef, blob).then(() => {
+        getDownloadURL(storageRef)
+          .then((downloadURL) => {
+            if (!downloadURL) {
+              return console.error("erro");
+            } else {
+              console.log(downloadURL);
+
+              return resolve(downloadURL);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    });
+  });
 };

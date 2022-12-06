@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../../services/api";
 import { ImgPerfil } from "../atoms";
 import UserSugestao from "../molecules/UserSugestao";
 
@@ -7,9 +8,17 @@ function Sugestoes(props) {
   const [user, setUser] = useState([]);
 
   React.useEffect(() => {
-    fetch(`https://insta-tera.herokuapp.com/user`)
-      .then((response) => response.json())
-      .then((date) => setUser(date));
+    const token = localStorage.getItem("@Auth:token");
+    api
+      .get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUser(response.data);
+      });
   }, []);
 
   return (
@@ -17,7 +26,7 @@ function Sugestoes(props) {
       <aside className="div-informacoes-user">
         <div>
           <div className="mini-perfil-user">
-            <Link to={`/user/${props.userSigned.user_id}`}>
+            <Link to={`/user/${props.userSigned.id}`}>
               <ImgPerfil avatar={props.userSigned.avatar} />
               <p>{props.userSigned.username}</p>
             </Link>
@@ -29,10 +38,10 @@ function Sugestoes(props) {
             <div>
               {user.map((users) => (
                 <UserSugestao
-                  userId={users.user_id}
+                  userId={users.id}
                   avatar={users.avatar}
                   username={users.username}
-                  key={users.user_id}
+                  key={users.id}
                 />
               ))}
             </div>

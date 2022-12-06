@@ -60,6 +60,8 @@ function Signup() {
           password,
           confirmPass,
         };
+
+        console.log(data);
         Signup(data);
       });
     };
@@ -74,6 +76,7 @@ function Signup() {
               {preview ? (
                 <img
                   className="register_avatar"
+                  alt="avatar"
                   src={preview}
                   style={{ objectFit: "cover" }}
                   onClick={() => {
