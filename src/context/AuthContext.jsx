@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { api } from "../services/api";
 
 export const AuthContext = createContext();
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const Signin = async ({ email, password }) => {
-    const response = await api
+    api
       .post("/login", { email, password })
       .then((response) => {
         if (response.data.error) {
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.setItem("@Auth:token", response.data.token);
 
-        return <Navigate to="/home" />;
+        return redirect("/home");
       }
     } catch (response) {
       return alert(response.response.data.message);
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.clear();
     setUser(null);
 
-    return <Navigate to="/" />;
+    return redirect("/login");
   };
 
   return (

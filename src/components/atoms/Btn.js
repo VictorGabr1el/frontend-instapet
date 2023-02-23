@@ -1,11 +1,9 @@
-function Btn(props) {
+export const Btn = (props) => {
   return (
     <>
-      <button id={props.class} onClick={props.click}>
+      <button id={props.class} type={props.type} onClick={props.onClick}>
         {props.txt}
       </button>
     </>
   );
-}
-
-export default Btn;
+};

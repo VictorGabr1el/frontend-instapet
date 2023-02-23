@@ -1,4 +1,4 @@
-function Title() {
+export const Title = () => {
   return (
     <>
       <div>
@@ -6,6 +6,4 @@ function Title() {
       </div>
     </>
   );
-}
-
-export default Title;
+};

@@ -21,6 +21,7 @@
   height: 515px;
   border-radius: 0px 6px 6px 0px;
   background: white;
+  z-index: 1;
 }
 
 .post_div_img {

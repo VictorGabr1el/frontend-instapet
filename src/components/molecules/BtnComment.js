@@ -5,8 +5,8 @@ import { AuthContext } from "../../context/AuthContext";
 
 import { Btn } from "../atoms";
 
-function BtnComment(props) {
-  const { updateDataPage, user } = useContext(AuthContext);
+export const BtnComment = (props) => {
+  const { updateDataPage } = useContext(AuthContext);
 
   const [content, setContent] = useState("");
 
@@ -14,17 +14,23 @@ function BtnComment(props) {
     e.preventDefault();
 
     const data = {
-      userId: user.user_id,
       postId: props.postId,
       content,
     };
 
+    console.log(data);
+    const token = localStorage.getItem("@Auth:token");
     api
-      .post(`/user/${user.user_id}/post/${props.postId}/comment`, data)
+      .post(`/comment`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         const Data = response.data;
         updateDataPage(Data);
         setContent("");
+        e.form.reset();
       })
       .catch((error) => {
         console.log(error);
@@ -33,21 +39,18 @@ function BtnComment(props) {
 
   return (
     <>
-      <div className="div_interations_new-coment">
+      <form className="form_interations_new-coment" onSubmit={newComment}>
         <input
           type="text"
+          required={true}
           name=""
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
           placeholder="adicione um comentário"
         />
-        <Btn
-          class={"btn_global_postagem"}
-          click={newComment}
-          txt={"Publicar"}
-        />
-      </div>
+        <Btn class={"btn_global_postagem"} type={"submit"} txt={"Publicar"} />
+      </form>
     </>
   );
-}
-
-export default BtnComment;
+};

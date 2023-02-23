@@ -1,55 +1,78 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+
+import { StateContext, AuthContext } from "../../context";
 import { api } from "../../services/api";
 
-import ImgPerfil from "../atoms/ImgPerfil";
 import { BtnComment, Comment } from "../molecules";
+import { Loading } from "../organisms";
+import { Avatar } from "../atoms";
 
 import like from "../../img/like.svg";
 import send from "../../img/send-fill.svg";
 import "../../styles/postagem.css";
 
-function Postagem(props) {
+export const Postagem = (props) => {
+  const { postId, userId } = useParams();
+  const { newData } = useContext(AuthContext);
+  const { OpenModalFullPost } = useContext(StateContext);
+  const [loading, setLoading] = useState(true);
   const [post, setPost] = useState([]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("@Auth:token");
-    api
-      .get("/post", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => response.json())
-      .then((date) => setPost(date));
-  }, []);
+  const navigate = useNavigate();
 
-  return (
+  useEffect(() => {
+    api
+      .get(`/post/${postId}`)
+      .then((response) => {
+        setPost(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        return navigate("/home", -1);
+      });
+  }, [postId, newData]);
+
+  const functionClose = () => {
+    OpenModalFullPost(false);
+    setPost([]);
+    return navigate("/home");
+  };
+
+  return loading ? (
+    <Loading />
+  ) : (
     <>
-      {post.length !== 0 ? (
-        <div className="class_disable">
+      {post.map((posts) => (
+        <div className="class_enable" key={posts.id}>
+          <Link
+            className="btn_close"
+            onClick={functionClose}
+            to={userId ? `/user/${userId}` : "/home"}
+          ></Link>
           <article className="class_post">
             <div className="post_div_img">
               <div>
-                <img src={post.img_post} alt="" />
+                <img src={posts.img_post} alt="" />
               </div>
             </div>
             <div className="post_interation">
               <div className="div_user_publication">
-                <ImgPerfil avatar={post.User.avatar} />
-                <p>{post.User.username}</p>
+                <Avatar avatar={posts.User.avatar} />
+                <p>{posts.User.username}</p>
               </div>
               <div className="div_interation">
                 <div className="legend_comment">
                   <div className="post_legend">
                     <p>
-                      <strong>{post.User.username}: </strong>
-                      {post.legend}
+                      <strong>{posts.User.username}: </strong>
+                      {posts.legend}
                     </p>
                   </div>
                   <div className="post_comment">
-                    {post.Comments.map((C) => (
+                    {posts.Comments.map((C) => (
                       <Comment
-                        key={C.comment_id}
+                        key={C.id}
                         avatar={C.User.avatar}
                         username={C.User.username}
                         content={C.content}
@@ -69,16 +92,12 @@ function Postagem(props) {
                     </ul>
                   </div>
                 </div>
-                <BtnComment />
+                <BtnComment postId={posts.id} />
               </div>
             </div>
           </article>
         </div>
-      ) : (
-        <></>
-      )}
+      ))}
     </>
   );
-}
-
-export default Postagem;
+};

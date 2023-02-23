@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { ImgPerfil } from "../atoms";
+import { Avatar } from "../atoms";
 
-function Comment(props) {
+export const Comment = (props) => {
   return (
     <>
       <div className="div_interations_coment">
         <div className="div_interations_user-coment">
           <Link to={`/user/${props.userId}`}>
-            <ImgPerfil avatar={props.avatar} />
+            <Avatar avatar={props.avatar} />
           </Link>
         </div>
         <div className="div_interations-user-text-coment">
@@ -17,6 +17,4 @@ function Comment(props) {
       </div>
     </>
   );
-}
-
-export default Comment;
+};

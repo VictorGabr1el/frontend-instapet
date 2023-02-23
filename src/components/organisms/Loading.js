@@ -1,7 +1,7 @@
 import loading from "../../img/loading.svg";
 import "../../styles/loading.css";
 
-function Loading() {
+export const Loading = () => {
   return (
     <>
       <div className="div_loading">
@@ -9,6 +9,4 @@ function Loading() {
       </div>
     </>
   );
-}
-
-export default Loading;
+};

@@ -24,7 +24,7 @@ export const Resize = ({ src, ww }) => {
         .drawImage(image, 0, 0, canvas.width, canvas.height);
 
       return new Promise(function (resolve) {
-        canvas.toBlob(resolve, options.type || "image/avif", options.quality);
+        canvas.toBlob(resolve, "image/webp");
 
         return resolve;
       });

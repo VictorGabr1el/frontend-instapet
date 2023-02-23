@@ -1,4 +1,4 @@
-function PerfilStatus(props) {
+export const PerfilStatus = (props) => {
   return (
     <>
       <div className="status">
@@ -7,6 +7,4 @@ function PerfilStatus(props) {
       </div>
     </>
   );
-}
-
-export default PerfilStatus;
+};

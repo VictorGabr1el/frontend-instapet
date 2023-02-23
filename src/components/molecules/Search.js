@@ -1,25 +1,20 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
-import { AuthContext } from "../../context/AuthContext";
-import { ImgPerfil } from "../atoms";
+import { AuthContext, StateContext } from "../../context";
+import { Avatar } from "../atoms";
 
-import house from "../../img/house.svg";
-import add from "../../img/Add.svg";
-import signout from "../../img/signout.svg";
+import { home, Add, signout } from "../../img";
 
-function Search(props) {
-  const { Singout, user } = useContext(AuthContext);
+export const Search = (props) => {
+  const { Singout } = useContext(AuthContext);
+  const { OpenModalNewPost } = useContext(StateContext);
 
   async function newPost() {
-    const div = await document.querySelector(".new_publication_disable");
-    div.classList.replace("new_publication_disable", "new_publication_enable");
+    OpenModalNewPost(true);
 
     const body = await document.querySelector("body");
     body.style.overflow = "hidden";
-
-    const opac = await document.querySelector(".enable_opacity");
-    opac.style.opacity = "50%";
   }
 
   return (
@@ -36,21 +31,19 @@ function Search(props) {
           <img className="nav_img_signout" src={signout} alt="" />
         </Link>
         <Link to={"/home"}>
-          <img className="nav_img" src={house} alt="" />
+          <img className="nav_img" src={home} alt="" />
         </Link>
         <img
           className="nav_img"
           onClick={newPost}
-          src={add}
+          src={Add}
           alt=""
           id="btnAdd"
         />
-        <Link to={`/user/${user.user_id}`}>
-          <ImgPerfil avatar={props.avatar} />
+        <Link to={`/user/${props.id}`}>
+          <Avatar avatar={props.avatar} />
         </Link>
       </div>
     </>
   );
-}
-
-export default Search;
+};

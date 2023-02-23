@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-function FormLogin() {
+export const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { Signin, signed } = useContext(AuthContext);
@@ -23,22 +23,22 @@ function FormLogin() {
         <div className="container_signin">
           <form onSubmit={userLogin} className="form" id="form2">
             <h2 className="form__title">Bem vindo ao InstaPet</h2>
+            <label>Email</label>
             <input
               id="loginEmail"
               name="email"
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               required={true}
-              placeholder="Email"
               className="input"
             />
+            <label>Password</label>
             <input
               id="loginPassword"
               name="password"
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               required={true}
-              placeholder="Password"
               className="input"
             />
             <Link href="#" className="link">
@@ -57,6 +57,4 @@ function FormLogin() {
   } else {
     return <Navigate to={`/home`} />;
   }
-}
-
-export default FormLogin;
+};

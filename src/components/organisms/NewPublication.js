@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { api } from "../../services/api";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext, StateContext } from "../../context";
 import { Resize } from "../../services/Resize.js";
 
-function NewPublication() {
+export const NewPublication = () => {
   const { updateDataPage } = useContext(AuthContext);
+  const { OpenModalNewPost } = useContext(StateContext);
 
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(null);
@@ -12,14 +13,10 @@ function NewPublication() {
   const [legend, setLegend] = useState(null);
 
   const btnClose = async () => {
-    const div = await document.querySelector(".new_publication_enable");
-    div.classList.replace("new_publication_enable", "new_publication_disable");
+    OpenModalNewPost(false);
 
     const body = await document.querySelector("body");
     body.style.overflow = "";
-
-    const opac = await document.querySelector(".enable_opacity");
-    opac.style.opacity = "";
   };
 
   useEffect(() => {
@@ -27,7 +24,6 @@ function NewPublication() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
-        console.log(image);
       };
       reader.readAsDataURL(image);
     } else {
@@ -43,8 +39,6 @@ function NewPublication() {
     const img = new Image();
     img.src = src;
 
-    console.log(img);
-
     img.onload = function () {
       const ww =
         image.size < 513051
@@ -54,9 +48,10 @@ function NewPublication() {
           : image.size >= 613051 && image.size < 893051
           ? (this.width / 100) * 80
           : image.size >= 893051 && image.size < 1189990
+          ? (this.width / 100) * 65
+          : image.size >= 1189990 && image.size < 1409990
           ? (this.width / 100) * 50
           : (this.width / 100) * 40;
-      console.log(ww);
 
       Resize({ src, ww })
         .then((downloadURL) => {
@@ -74,24 +69,23 @@ function NewPublication() {
               },
             })
             .then((response) => {
-              console.log(response);
               updateDataPage(response.data);
               btnClose();
             })
             .catch((error) => {
-              console.log(error);
+              return error;
             });
         })
         .catch((error) => {
-          console.log(error);
+          return error;
         });
     };
   };
 
   return (
     <>
-      <div className="new_publication_disable">
-        <div className="nnn" onClick={btnClose}></div>
+      <div className="new_publication_enable">
+        <div className="btn_close" onClick={btnClose}></div>
         <form onSubmit={Submit} className="new_publication_margin">
           <div className="new_publication_title">
             <p>Nova publicação</p>
@@ -152,6 +146,4 @@ function NewPublication() {
       </div>
     </>
   );
-}
-
-export default NewPublication;
+};

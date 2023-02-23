@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { api } from "../../services/api";
 
-import PerfilStatus from "../molecules/PerfilStatus";
+import { PerfilStatus } from "../molecules";
 
-function Status(props) {
+export const Status = (props) => {
   const [friends, setFriends] = useState([]);
   React.useEffect(() => {
     api.get("/users").then((response) => setFriends(response.data));
@@ -20,6 +20,4 @@ function Status(props) {
       </div>
     </>
   );
-}
-
-export default Status;
+};

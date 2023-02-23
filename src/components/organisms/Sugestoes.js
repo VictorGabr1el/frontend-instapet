@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../services/api";
-import { ImgPerfil } from "../atoms";
-import UserSugestao from "../molecules/UserSugestao";
+import { Avatar } from "../atoms";
+import { UserSugestao } from "../molecules";
 
-function Sugestoes(props) {
+export const Sugestoes = (props) => {
   const [user, setUser] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("@Auth:token");
     api
       .get("/users", {
@@ -16,7 +16,6 @@ function Sugestoes(props) {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setUser(response.data);
       });
   }, []);
@@ -26,9 +25,9 @@ function Sugestoes(props) {
       <aside className="div-informacoes-user">
         <div>
           <div className="mini-perfil-user">
-            <Link to={`/user/${props.userSigned.id}`}>
-              <ImgPerfil avatar={props.userSigned.avatar} />
-              <p>{props.userSigned.username}</p>
+            <Link to={`/user/${props.user.id}`}>
+              <Avatar avatar={props.user.avatar} />
+              <p>{props.user.username}</p>
             </Link>
           </div>
           <div className="div-sugestoes">
@@ -50,6 +49,4 @@ function Sugestoes(props) {
       </aside>
     </>
   );
-}
-
-export default Sugestoes;
+};

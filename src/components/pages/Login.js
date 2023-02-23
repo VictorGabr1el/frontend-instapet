@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../../styles/login.css";
 import { FormLogin } from "../organisms";
 
-function Login() {
+export const Login = () => {
   return (
     <>
       <div className="body_login_page">
@@ -24,6 +24,4 @@ function Login() {
       </div>
     </>
   );
-}
-
-export default Login;
+};

@@ -1,5 +1,6 @@
-import ImgPerfil from "./ImgPerfil";
-import Title from "./Title";
-import Btn from "./Btn";
+import { Avatar } from "./Avatar";
+import { Title } from "./Title";
+import { Btn } from "./Btn";
+import { CreatedAt } from "./CreatedAt";
 
-export { ImgPerfil, Title, Btn };
+export { Avatar, Title, Btn, CreatedAt };

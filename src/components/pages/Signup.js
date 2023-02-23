@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import "../../styles/signup.css";
 import { Resize } from "../../services/Resize.js";
 
-function Signup() {
+export const Signup = () => {
   const { signed, Signup } = useContext(AuthContext);
 
   const [name, setName] = useState("");
@@ -151,8 +151,8 @@ function Signup() {
                 id="confirmPass"
                 name="confirmPass"
               />
-              <Link className="link_login" to={"/"}>
-                <p>fazer login</p>
+              <Link className="link_login" to={"/login"}>
+                <p>login</p>
               </Link>
               <button className="btn_cadastro" type={"submit"}>
                 Cadastrar
@@ -165,6 +165,4 @@ function Signup() {
   } else {
     return <Navigate to={`/home`} />;
   }
-}
-
-export default Signup;
+};
