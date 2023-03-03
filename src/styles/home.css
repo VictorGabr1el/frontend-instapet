@@ -7,7 +7,12 @@
   display: none;
 }
 
+#root {
+  box-sizing: border-box;
+}
+
 .class_body {
+  height: 100vh;
   padding: 0;
   margin: 0;
   background: #dfe6ed;
@@ -35,6 +40,7 @@
   box-shadow: 0px 0px 2px 0px lightslategrey;
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 .class_nav {
@@ -273,7 +279,6 @@
 
 .div_interations_btn_more-coments {
   display: flex;
-  flex-direction: row-reverse;
   color: #ababab;
 }
 
@@ -284,6 +289,7 @@
   border: none;
   color: #6e6e6e;
   cursor: pointer;
+  text-decoration: none;
 }
 
 #btn_global_postagem {
@@ -307,7 +313,7 @@
 
 .form_interations_new-coment {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
 }
 
@@ -424,6 +430,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 
 .new_publication_margin {
@@ -440,7 +447,6 @@
   align-items: center;
   border-radius: 7px;
   box-sizing: border-box;
-  border: solid 1px #333;
   z-index: 1;
 }
 
@@ -563,7 +569,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: aliceblue;
+  background: black;
   z-index: 0;
   opacity: 60%;
 }
@@ -589,7 +595,6 @@
   border-radius: 8px;
   box-sizing: border-box;
   border: solid 1px #333;
-  z-index: 1;
 }
 
 .btn_delete {

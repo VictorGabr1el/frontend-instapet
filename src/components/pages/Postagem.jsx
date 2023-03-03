@@ -5,8 +5,7 @@ import { StateContext, AuthContext } from "../../context";
 import { api } from "../../services/api";
 
 import { BtnComment, Comment } from "../molecules";
-import { Loading } from "../organisms";
-import { Avatar } from "../atoms";
+import { Avatar, Loading } from "../atoms";
 
 import like from "../../img/like.svg";
 import send from "../../img/send-fill.svg";
@@ -57,7 +56,7 @@ export const Postagem = (props) => {
               </div>
             </div>
             <div className="post_interation">
-              <div className="div_user_publication">
+              <div className="post_info_user">
                 <Avatar avatar={posts.User.avatar} />
                 <p>{posts.User.username}</p>
               </div>

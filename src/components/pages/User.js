@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { Default } from "../templates/Default";
-import { Loading } from "../organisms";
+import { Loading } from "../atoms";
 import { AuthContext, StateContext } from "../../context";
 
 import "../../styles/user.css";
@@ -10,7 +10,7 @@ import { api } from "../../services/api";
 import { Follow } from "../../functions/Follow";
 
 export const User = (props) => {
-  const { user } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const { OpenModalFullPost } = useContext(StateContext);
   const { userId } = useParams();
 
@@ -21,14 +21,15 @@ export const User = (props) => {
     api.get(`/user/${userId}`).then((response) => {
       setUserPage(response.data);
       setLoading(false);
+      console.log(response.data);
     });
   }, [userId]);
 
   const publicationsNumber = userPage && userPage.Posts.length;
 
   const isFollowing =
-    user.Followings &&
-    user.Followings.find((element) => element.follow === userPage.id);
+    currentUser.Followings &&
+    currentUser.Followings.find((element) => element.follow === userPage.id);
 
   const btnOpenModalFullPost = () => {
     OpenModalFullPost(true);
@@ -51,7 +52,7 @@ export const User = (props) => {
                     <h2 className="username">{userPage.username}</h2>
                   </div>
                   <div>
-                    {userPage.id === user.id ? (
+                    {userPage.id === currentUser.id ? (
                       <button className="btn_editar_perfil">
                         Editar perfil
                       </button>
@@ -82,7 +83,7 @@ export const User = (props) => {
               </div>
             </div>
             <div className="div_titule_publications">
-              <p>PUBLICAÇÔES</p>
+              <p>PUBLICAÇÕES</p>
             </div>
 
             <div className="user_all_publications">

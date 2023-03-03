@@ -10,6 +10,7 @@ import heart from "./heart.svg";
 import home from "./house.svg";
 import signout from "./signout.svg";
 import close from "./close.svg";
+import inprogress from "./Frame.svg";
 
 export {
   Add,
@@ -24,4 +25,5 @@ export {
   home,
   signout,
   close,
+  inprogress,
 };

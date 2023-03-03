@@ -12,12 +12,12 @@ import {
 export const Default = (props) => {
   const { isVisibleFullPost, isVisibleNewPost, isVisibleModifyPost } =
     useContext(StateContext);
-  const { user } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const { postId } = useParams();
 
   return (
     <div className="class_body">
-      <Header user={user} />
+      <Header user={currentUser} />
       {props.children}
       {postId ? <Postagem /> : isVisibleFullPost && <Postagem />}
       {isVisibleNewPost && <NewPublication />}

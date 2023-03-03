@@ -5,7 +5,6 @@ import { Status } from "./Status";
 import { Sugestoes } from "./Sugestoes";
 import { FormLogin } from "./FormLogin";
 import { Postagem } from "../pages/Postagem";
-import { Loading } from "./Loading";
 import { ModalModifyPost } from "./ModalModifyPost";
 
 export {
@@ -16,6 +15,5 @@ export {
   NewPublication,
   FormLogin,
   Postagem,
-  Loading,
   ModalModifyPost,
 };

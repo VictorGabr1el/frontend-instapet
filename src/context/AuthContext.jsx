@@ -5,7 +5,7 @@ import { api } from "../services/api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(true);
+  const [currentUser, setCurrentUser] = useState(true);
   const [newData, setNewData] = useState([]);
 
   useEffect(() => {
@@ -19,15 +19,15 @@ export const AuthProvider = ({ children }) => {
           },
         })
         .then((response) => {
-          setUser(response.data);
+          setCurrentUser(response.data);
         })
         .catch((error) => {
           localStorage.clear();
           console.log(error);
-          return setUser(null);
+          return setCurrentUser(null);
         });
     } else {
-      return setUser(null);
+      return setCurrentUser(null);
     }
   }, []);
 
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
         if (response.data.error) {
           return alert(response.data.message);
         } else {
-          setUser(response.data.user);
+          setCurrentUser(response.data.user);
 
           api.defaults.headers.common[
             "Authorization"
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       if (response.data.error) {
         return alert(response.data.message);
       } else {
-        setUser(response.data.user);
+        setCurrentUser(response.data.user);
 
         api.defaults.headers.common[
           "Authorization"
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 
   const Singout = () => {
     localStorage.clear();
-    setUser(null);
+    setCurrentUser(null);
 
     return redirect("/login");
   };
@@ -88,12 +88,12 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user,
+        currentUser,
         Signin,
         Signup,
         Singout,
         updateDataPage,
-        signed: !!user,
+        signed: !!currentUser,
         newData,
       }}
     >

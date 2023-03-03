@@ -1,0 +1,21 @@
+.in_progress {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  transform: translate(242px, -100%);
+}
+
+.in_progress_svg {
+  width: 100%;
+  animation: loading 1s linear infinite 0ms;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

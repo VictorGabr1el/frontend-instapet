@@ -99,3 +99,6 @@
   aspect-ratio: 4/4;
   width: 100%;
 }
+.user_all_publications_img img:hover {
+  opacity: 0.9;
+}
