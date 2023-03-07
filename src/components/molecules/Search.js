@@ -79,19 +79,20 @@ export const Search = (props) => {
             </div>
           </div>
         )} */}
-        <Link onClick={Singout}>
-          <img className="nav_img_signout" src={signout} alt="" />
+        <Link className="nav_img_signout" onClick={Singout}>
+          <img className="img_signout" src={signout} alt="" />
         </Link>
-        <Link to={"/home"}>
-          <img className="nav_img" src={home} alt="" />
+        <Link className="nav_img_home" to={"/home"}>
+          <img className="img_home" src={home} alt="" />
         </Link>
-        <img
-          className="nav_img"
+        <button
+          className="nav_button_add"
           onClick={newPost}
-          src={Add}
           alt=""
-          id="btnAdd"
-        />
+          // id="btnAdd"
+        >
+          <img className="img_add" src={Add} />
+        </button>
         <Link to={`/user/${props.id}`}>
           <Avatar avatar={props.avatar} />
         </Link>

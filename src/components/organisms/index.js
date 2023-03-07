@@ -5,7 +5,8 @@ import { Status } from "./Status";
 import { Sugestoes } from "./Sugestoes";
 import { FormLogin } from "./FormLogin";
 import { Postagem } from "../pages/Postagem";
-import { ModalModifyPost } from "./ModalModifyPost";
+import { EditOrDeletePost } from "../molecules/EditOrDeletePost";
+import { useModalDeletePost } from "./ModalDeletePost";
 
 export {
   Header,
@@ -15,5 +16,6 @@ export {
   NewPublication,
   FormLogin,
   Postagem,
-  ModalModifyPost,
+  EditOrDeletePost,
+  useModalDeletePost,
 };

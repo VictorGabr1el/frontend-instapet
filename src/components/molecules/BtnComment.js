@@ -8,7 +8,6 @@ import { inprogress } from "../../img";
 export const BtnComment = (props) => {
   const { updateDataPage } = useContext(AuthContext);
   const [InProgressVisivle, setInProgressVisible] = useState(false);
-  // const { ComponentInProgress, IsInProgress } = InProgress();
 
   const [content, setContent] = useState("");
 
@@ -22,8 +21,6 @@ export const BtnComment = (props) => {
 
     setInProgressVisible(true);
 
-    setContent("");
-
     const token = localStorage.getItem("@Auth:token");
     api
       .post(`/comment`, data, {
@@ -34,6 +31,7 @@ export const BtnComment = (props) => {
       .then((response) => {
         const Data = response.data;
         updateDataPage(Data);
+        setContent("");
         setInProgressVisible(false);
       })
       .catch((error) => {
@@ -66,7 +64,7 @@ export const BtnComment = (props) => {
                 alignItems: "center",
                 justifyContent: "center",
                 boxSizing: "content-box",
-                transform: "translate(590%, 0%)",
+                transform: props.transform,
               }}
             >
               <img

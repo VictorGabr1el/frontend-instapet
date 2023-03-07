@@ -12,7 +12,7 @@ export const Comment = (props) => {
         </div>
         <div className="div_interations-user-text-coment">
           <p className="div_interations-userName-coment">{props.username}</p>
-          <p>{props.content}</p>
+          <p> {props.content}</p>
         </div>
       </div>
     </>

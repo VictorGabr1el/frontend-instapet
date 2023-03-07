@@ -10,7 +10,7 @@ import { api } from "../../services/api";
 import { Follow } from "../../functions/Follow";
 
 export const User = (props) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, newData } = useContext(AuthContext);
   const { OpenModalFullPost } = useContext(StateContext);
   const { userId } = useParams();
 
@@ -23,7 +23,7 @@ export const User = (props) => {
       setLoading(false);
       console.log(response.data);
     });
-  }, [userId]);
+  }, [newData, userId]);
 
   const publicationsNumber = userPage && userPage.Posts.length;
 

@@ -1,6 +1,6 @@
 import Add from "./Add.svg";
 import like from "./like.svg";
-import send from "./send-fill.svg";
+import share from "./share.svg";
 import more from "./more.svg";
 import loading from "./loading.svg";
 import avatar from "./avatar-person.svg";
@@ -15,7 +15,7 @@ import inprogress from "./Frame.svg";
 export {
   Add,
   like,
-  send,
+  share,
   more,
   loading,
   avatar,

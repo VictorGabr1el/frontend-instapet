@@ -1,81 +1,148 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context";
+import { api } from "../../services/api";
 
-const ModalDeletePost = () => {
-  const [isOPenModalDeletePost, setIsOpenModalDeletePost] = useState(false);
+export const useModalDeletePost = () => {
+  const { updateDataPage } = useContext(AuthContext);
+  const [isOpenModalDeletePost, setIsOpenModalDeletePost] = useState(false);
 
-  return (
-    <>
-      <div>
+  let PostId;
+
+  async function OpenModalDeletePost(postId) {
+    await setIsOpenModalDeletePost(true);
+    PostId = postId;
+  }
+
+  function DeletePost() {
+    const token = localStorage.getItem("@Auth:token");
+
+    if (PostId) {
+      api
+        .delete(`post/${PostId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          const body = document.querySelector("body");
+          body.style.overflow = "";
+
+          setIsOpenModalDeletePost(false);
+          updateDataPage(response.data);
+        });
+    }
+  }
+
+  const ModalDeletePost = () => {
+    return (
+      <>
         <div
           style={{
             position: "fixed",
-            height: "100%",
             width: "100%",
-            zIndex: "0",
-            background: "black",
-            opacity: "60%",
-          }}
-        />
-        <div
-          style={{
-            position: "fixed",
+            height: "100%",
             top: "50%",
             left: "50%",
             right: "auto",
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            width: "40%",
-            height: "30%",
-            background: "white",
-            borderRadius: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: "3",
           }}
         >
-          <form
+          <div
+            onClick={() => {
+              const body = document.querySelector("body");
+              body.style.overflow = "";
+
+              setIsOpenModalDeletePost(false);
+            }}
             style={{
-              display: "flex",
-              flexDirection: "column",
+              position: "fixed",
               height: "100%",
-              textAlign: "center",
-              justifyContent: "space-evenly",
-              width: "98%",
-              marginInline: "auto",
+              width: "100%",
+              zIndex: "0",
+              background: "black",
+              opacity: "60%",
+            }}
+          />
+          <div
+            style={{
+              position: "fixed",
+              width: "400px",
+              height: "200px",
+              background: "white",
+              borderRadius: "10px",
             }}
           >
-            <h2
+            <div
               style={{
-                height: "30%",
-                fontWeight: "600",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                flexDirection: "column",
+                height: "100%",
+                textAlign: "center",
+                justifyContent: "space-evenly",
+                width: "98%",
+                marginInline: "auto",
               }}
             >
-              Excluir Publicação
-            </h2>
-            <p style={{ height: "20%" }}>
-              Tem certeza de que deseja excluir essa publicação?
-            </p>
-            <button
-              style={{
-                background: "none",
-                height: "25%",
-                border: "none",
-                borderTop: "solid 1px #a7a7a7",
-                borderBottom: "solid 1px #a7a7a7",
-                color: "red",
-              }}
-            >
-              Excluir
-            </button>
-            <button
-              style={{ height: " 25%", border: "none", background: "none" }}
-            >
-              Cancelar
-            </button>
-          </form>
+              <h2
+                style={{
+                  height: "30%",
+                  display: "flex",
+                  fontWeight: "600",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                Excluir Publicação
+              </h2>
+              <p style={{ height: "20%" }}>
+                Tem certeza de que deseja excluir essa publicação?
+              </p>
+              <button
+                onClick={DeletePost}
+                style={{
+                  background: "none",
+                  height: "25%",
+                  border: "none",
+                  borderTop: "solid 1px #a7a7a7",
+                  borderBottom: "solid 1px #a7a7a7",
+                  color: "red",
+                  fontWeight: "500",
+                  cursor: "pointer",
+                }}
+              >
+                Excluir
+              </button>
+              <button
+                onClick={() => {
+                  const body = document.querySelector("body");
+                  body.style.overflow = "";
+
+                  setIsOpenModalDeletePost(false);
+                }}
+                style={{
+                  height: " 25%",
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  };
+
+  return {
+    ModalDeletePost,
+    OpenModalDeletePost,
+  };
 };

@@ -1,17 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext, StateContext } from "../../context";
 
-import {
-  Header,
-  NewPublication,
-  Postagem,
-  ModalModifyPost,
-} from "../organisms";
+import { Header, NewPublication, Postagem } from "../organisms";
 
 export const Default = (props) => {
-  const { isVisibleFullPost, isVisibleNewPost, isVisibleModifyPost } =
-    useContext(StateContext);
+  const { isVisibleFullPost, isVisibleNewPost } = useContext(StateContext);
   const { currentUser } = useContext(AuthContext);
   const { postId } = useParams();
 
@@ -21,7 +15,6 @@ export const Default = (props) => {
       {props.children}
       {postId ? <Postagem /> : isVisibleFullPost && <Postagem />}
       {isVisibleNewPost && <NewPublication />}
-      {isVisibleModifyPost && <ModalModifyPost />}
     </div>
   );
 };

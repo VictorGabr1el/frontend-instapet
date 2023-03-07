@@ -1,4 +1,4 @@
-import React, { StrictMode, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context";
 import { api } from "../../services/api";
 
@@ -20,7 +20,6 @@ export const Home = (props) => {
       setLoading(false);
     });
   }, [newData]);
-  console.log(posts);
 
   return (
     <Default>
@@ -45,6 +44,7 @@ export const Home = (props) => {
                       legend={post.legend}
                       createdAt={post.createdAt}
                       PostComments={post.Comments[0]}
+                      PostComments1={post.Comments[1]}
                       PostId={post.id}
                     />
                   ))}

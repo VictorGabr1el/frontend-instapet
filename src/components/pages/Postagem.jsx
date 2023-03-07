@@ -4,18 +4,17 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { StateContext, AuthContext } from "../../context";
 import { api } from "../../services/api";
 
-import { BtnComment, Comment } from "../molecules";
-import { Avatar, Loading } from "../atoms";
+import { BtnComment, Comment, EditOrDeletePost } from "../molecules";
+import { Avatar } from "../atoms";
 
-import like from "../../img/like.svg";
-import send from "../../img/send-fill.svg";
+import { like, share } from "../../img";
+
 import "../../styles/postagem.css";
 
 export const Postagem = (props) => {
   const { postId, userId } = useParams();
-  const { newData } = useContext(AuthContext);
+  const { newData, currentUser } = useContext(AuthContext);
   const { OpenModalFullPost } = useContext(StateContext);
-  const [loading, setLoading] = useState(true);
   const [post, setPost] = useState([]);
 
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ export const Postagem = (props) => {
       .get(`/post/${postId}`)
       .then((response) => {
         setPost(response.data);
-        setLoading(false);
       })
       .catch((error) => {
         return navigate("/home", -1);
@@ -38,9 +36,7 @@ export const Postagem = (props) => {
     return navigate("/home");
   };
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <>
       {post.map((posts) => (
         <div className="class_enable" key={posts.id}>
@@ -50,20 +46,36 @@ export const Postagem = (props) => {
             to={userId ? `/user/${userId}` : "/home"}
           ></Link>
           <article className="class_post">
-            <div className="post_div_img">
-              <div>
+            <div
+              className="post_div_img"
+              style={{ heigh: "100%", width: "-webkit-fill-available" }}
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <img src={posts.img_post} alt="" />
               </div>
             </div>
-            <div className="post_interation">
+            <div className="post_interation" style={{ width: "auto" }}>
               <div className="post_info_user">
                 <Avatar avatar={posts.User.avatar} />
                 <p>{posts.User.username}</p>
+                {currentUser.id === posts.User.id && (
+                  <div style={{ marginLeft: "auto" }}>
+                    <EditOrDeletePost PostId={posts.id} />
+                  </div>
+                )}
               </div>
               <div className="div_interation">
                 <div className="legend_comment">
                   <div className="post_legend">
-                    <p>
+                    <p style={{ wordBreak: "break-all" }}>
                       <strong>{posts.User.username}: </strong>
                       {posts.legend}
                     </p>
@@ -86,12 +98,15 @@ export const Postagem = (props) => {
                         <img src={like} alt="" />
                       </li>
                       <li>
-                        <img src={send} alt="" />
+                        <img src={share} alt="" />
                       </li>
                     </ul>
                   </div>
                 </div>
-                <BtnComment postId={posts.id} />
+                <BtnComment
+                  postId={posts.id}
+                  transform={"translate(110px, 0px)"}
+                />
               </div>
             </div>
           </article>
