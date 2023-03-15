@@ -129,7 +129,7 @@
   height: 100%;
   text-align: center;
   justify-content: space-evenly;
-  width: 98%;
+  width: 99%;
   margin-inline: auto;
 }
 
@@ -157,9 +157,17 @@
   margin-top: 1%;
 }
 
+.second_modal_btn_delete:active {
+  background-color: #dddddd;
+}
+
 .second_modal_btn_cancel {
   height: 23%;
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.second_modal_btn_cancel:active {
+  background-color: #dddddd;
 }

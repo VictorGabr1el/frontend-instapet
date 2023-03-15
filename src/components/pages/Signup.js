@@ -2,11 +2,17 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { Navigate, Link } from "react-router-dom";
 
 import { AuthContext } from "../../context/AuthContext.jsx";
-import "../../styles/signup.css";
+import { inprogress } from "../../img/index.js";
 import { Resize } from "../../services/Resize.js";
+
+import "../../styles/signup.css";
 
 export const Signup = () => {
   const { signed, Signup } = useContext(AuthContext);
+
+  const [InProgressVisivle, setInProgressVisible] = useState(false);
+  const [preview, setPreview] = useState(null);
+  const fileInputRef = useRef();
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -14,9 +20,6 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [imgUser, setImgUser] = useState("");
-
-  const [preview, setPreview] = useState(null);
-  const fileInputRef = useRef();
 
   useEffect(() => {
     if (imgUser === "" || imgUser === null) {
@@ -31,7 +34,6 @@ export const Signup = () => {
         setPreview(null);
       } else {
         reader.readAsDataURL(imgUser);
-        console.log(imgUser);
       }
     }
   }, [imgUser]);
@@ -39,31 +41,38 @@ export const Signup = () => {
   const newUser = (e) => {
     e.preventDefault();
 
+    setInProgressVisible(true);
+
     const src = URL.createObjectURL(imgUser);
 
     const img = new Image();
     img.src = src;
 
     img.onload = function () {
-      const ww =
+      const width =
         imgUser.size > 613051
           ? (this.width / 100) * 50
           : (this.width / 100) * 80;
 
-      console.log(ww, this.width);
-      Resize({ src, ww }).then((downloadURL) => {
-        const data = {
-          name,
-          username,
-          email,
-          avatar: downloadURL,
-          password,
-          confirmPass,
-        };
+      Resize({ src, width })
+        .then((downloadURL) => {
+          const data = {
+            name,
+            username,
+            email,
+            avatar: downloadURL,
+            password,
+            confirmPass,
+          };
 
-        console.log(data);
-        Signup(data);
-      });
+          Signup(data);
+
+          setInProgressVisible(false);
+        })
+        .catch((error) => {
+          setInProgressVisible(false);
+          return error;
+        });
     };
   };
 
@@ -80,6 +89,7 @@ export const Signup = () => {
                   src={preview}
                   style={{ objectFit: "cover" }}
                   onClick={() => {
+                    fileInputRef.current.value = "";
                     setImgUser("");
                   }}
                 />
@@ -159,6 +169,34 @@ export const Signup = () => {
               </button>
             </form>
           </div>
+          {InProgressVisivle && (
+            <>
+              <div
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxSizing: "content-box",
+                  background: "black",
+                  opacity: "65%",
+                  zIndex: "4",
+                  // transform: props.transform,
+                }}
+              >
+                <img
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                    animation: "loading 1s linear infinite 0ms",
+                  }}
+                  src={inprogress}
+                />
+              </div>
+            </>
+          )}
         </main>
       </>
     );

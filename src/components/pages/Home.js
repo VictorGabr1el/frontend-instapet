@@ -7,9 +7,8 @@ import { Loading } from "../atoms";
 import { Default } from "../templates/Default";
 
 import "../../styles/home.css";
-import { InProgress } from "../atoms/InProgress";
 
-export const Home = (props) => {
+export const Home = () => {
   const { newData } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,7 @@ export const Home = (props) => {
         <main className="class_main">
           <div className="flex-container">
             <section className="section_publications">
-              <Status />
+              {/* <Status /> */}
               {/* <!---------- Publicações ---------> */}
               <div className="all-publications">
                 <>

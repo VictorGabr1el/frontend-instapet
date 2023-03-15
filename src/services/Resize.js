@@ -1,19 +1,13 @@
 import { storage } from "./firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
-export const Resize = ({ src, ww }) => {
-  console.log(src, ww);
-
+export const Resize = ({ src, width }) => {
   function resizeImage(src, options) {
     return loadImage(document.createElement("img"), src).then(function (image) {
       const canvas = document.createElement("canvas");
 
-      console.log(canvas);
-
       if (options.width && !options.height) {
         options.height = image.height * (options.width / image.width);
-
-        console.log(canvas);
       } else if (!options.width && options.height) {
         options.width = image.width * (options.height / image.height);
       }
@@ -40,15 +34,11 @@ export const Resize = ({ src, ww }) => {
             resolve(img);
           });
       img.addEventListener("error", reject);
-
-      console.log(img);
     });
   }
 
   return new Promise((resolve) => {
-    resizeImage(src, { width: ww }).then(function (blob) {
-      console.log(blob);
-
+    resizeImage(src, { width: width }).then(function (blob) {
       const storageRef = ref(storage, `images/${src}`);
 
       uploadBytes(storageRef, blob).then(() => {
@@ -57,8 +47,6 @@ export const Resize = ({ src, ww }) => {
             if (!downloadURL) {
               return console.error("erro");
             } else {
-              console.log(downloadURL);
-
               return resolve(downloadURL);
             }
           })

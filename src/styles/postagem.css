@@ -90,9 +90,19 @@
   flex-direction: column;
 }
 
-.btn_like_send {
+.interactions_icons {
   padding: 10px 12px;
   height: 6%;
+  list-style: none;
+  margin: 0;
+  display: flex;
+}
+.interactions_icons li {
+  margin-right: 14px;
+}
+
+.icon {
+  width: 30px;
 }
 
 .post_div_user {

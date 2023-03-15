@@ -20,7 +20,7 @@
   justify-content: center;
 }
 
-.avatar {
+.userpage_avatar {
   width: 150px;
   height: 150px;
   border-radius: 100%;
@@ -51,7 +51,7 @@
 .btn_editar_perfil {
   font-weight: 500;
   padding: 4px 9px;
-  background: none;
+  background: white;
   border: solid 1px #979797;
   border-radius: 4px;
   cursor: pointer;
@@ -66,6 +66,20 @@
 
 .ul_follows li {
   margin-right: 30px;
+}
+
+.userpage_followers button {
+  background: none;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.userpage_following button {
+  background: none;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
 }
 
 .user_full_name {
@@ -89,6 +103,13 @@
   flex-wrap: wrap;
 }
 
+.no_publication {
+  margin: auto;
+  font-size: large;
+  font-weight: 500;
+  color: #2e2e2e;
+}
+
 .user_all_publications_img {
   width: 30%;
   margin: 0 1.65% 25px 1.65%;
@@ -100,5 +121,6 @@
   width: 100%;
 }
 .user_all_publications_img img:hover {
-  opacity: 0.9;
+  mix-blend-mode: multiply;
+  /* opacity: 0.9; */
 }

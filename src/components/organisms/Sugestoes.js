@@ -10,7 +10,6 @@ export const Sugestoes = (props) => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("@Auth:token");
     api.get("/users").then((response) => {
       setUser(response.data.randomUsers);
     });
@@ -44,15 +43,23 @@ export const Sugestoes = (props) => {
                     userId={users.id}
                     avatar={users.avatar}
                     username={users.username}
+                    followId={users.id}
                     key={users.id}
                   />
                 ))}
               </div>
             </div>
           </div>
-          <div style={{ height: "30%", display: "flex" }}>
+          <div
+            style={{
+              height: "30%",
+              display: "flex",
+              justifyContent: "space-evenly",
+            }}
+          >
             <p style={{ marginRight: "30px" }}>&#169; INSTAPET</p>
             <p>Github</p>
+            <p>Linkedin</p>
           </div>
         </div>
       </aside>

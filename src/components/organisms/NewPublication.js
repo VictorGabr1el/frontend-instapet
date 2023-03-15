@@ -2,11 +2,13 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { api } from "../../services/api";
 import { AuthContext, StateContext } from "../../context";
 import { Resize } from "../../services/Resize.js";
+import { inprogress } from "../../img";
 
 export const NewPublication = () => {
   const { updateDataPage } = useContext(AuthContext);
   const { OpenModalNewPost } = useContext(StateContext);
 
+  const [InProgressVisivle, setInProgressVisible] = useState(false);
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef();
@@ -17,6 +19,7 @@ export const NewPublication = () => {
 
     const body = await document.querySelector("body");
     body.style.overflow = "";
+    setInProgressVisible(false);
   };
 
   useEffect(() => {
@@ -34,13 +37,15 @@ export const NewPublication = () => {
   const Submit = (e) => {
     e.preventDefault();
 
+    setInProgressVisible(true);
+
     const src = URL.createObjectURL(image);
 
     const img = new Image();
     img.src = src;
 
     img.onload = function () {
-      const ww =
+      const width =
         image.size < 513051
           ? (this.width / 100) * 95
           : image.size >= 513051 && image.size < 613051
@@ -53,7 +58,7 @@ export const NewPublication = () => {
           ? (this.width / 100) * 50
           : (this.width / 100) * 40;
 
-      Resize({ src, ww })
+      Resize({ src, width })
         .then((downloadURL) => {
           const data = {
             img: downloadURL,
@@ -73,10 +78,12 @@ export const NewPublication = () => {
               btnClose();
             })
             .catch((error) => {
+              btnClose();
               return error;
             });
         })
         .catch((error) => {
+          btnClose();
           return error;
         });
     };
@@ -85,7 +92,9 @@ export const NewPublication = () => {
   return (
     <>
       <div className="new_publication_enable">
-        <div className="btn_close" onClick={btnClose}></div>
+        {!InProgressVisivle && (
+          <div className="btn_close" onClick={btnClose}></div>
+        )}
         <form onSubmit={Submit} className="new_publication_margin">
           <div className="new_publication_title">
             <p>Nova publicação</p>
@@ -98,6 +107,7 @@ export const NewPublication = () => {
                 src={preview}
                 style={{ objectFit: "cover" }}
                 onClick={() => {
+                  fileInputRef.current.value = "";
                   setImage(null);
                 }}
               />
@@ -143,6 +153,34 @@ export const NewPublication = () => {
             </button>
           </div>
         </form>
+        {InProgressVisivle && (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxSizing: "content-box",
+                background: "black",
+                opacity: "65%",
+                zIndex: "4",
+                // transform: props.transform,
+              }}
+            >
+              <img
+                style={{
+                  width: "35px",
+                  height: "35px",
+                  animation: "loading 1s linear infinite 0ms",
+                }}
+                src={inprogress}
+              />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

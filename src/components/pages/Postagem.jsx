@@ -11,7 +11,7 @@ import { like, share } from "../../img";
 
 import "../../styles/postagem.css";
 
-export const Postagem = (props) => {
+export const Postagem = () => {
   const { postId, userId } = useParams();
   const { newData, currentUser } = useContext(AuthContext);
   const { OpenModalFullPost } = useContext(StateContext);
@@ -91,18 +91,14 @@ export const Postagem = (props) => {
                     ))}
                   </div>
                 </div>
-                <div className="btn_like_send">
-                  <div className="div_interations_emogis">
-                    <ul>
-                      <li>
-                        <img src={like} alt="" />
-                      </li>
-                      <li>
-                        <img src={share} alt="" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <ul className="interactions_icons">
+                  <li>
+                    <img className="icon" src={like} alt="" />
+                  </li>
+                  <li>
+                    <img className="icon" src={share} alt="" />
+                  </li>
+                </ul>
                 <BtnComment
                   postId={posts.id}
                   transform={"translate(110px, 0px)"}

@@ -9,10 +9,12 @@
 
 #root {
   box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  background: #dfe6ed;
 }
 
 .class_body {
-  height: 100vh;
   padding: 0;
   margin: 0;
   background: #dfe6ed;
@@ -117,7 +119,7 @@
   width: 110%;
 }
 
-.nav_img_user {
+.avatar {
   width: 36px;
   height: 36px;
   background-image: url("../img/avatar-person.svg");
@@ -612,7 +614,7 @@
   height: 100%;
   background: black;
   z-index: 0;
-  opacity: 60%;
+  opacity: 55%;
 }
 
 /* ------------ Media queries ----------- */

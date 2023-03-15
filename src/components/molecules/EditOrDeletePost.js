@@ -2,14 +2,16 @@ import { useState, useContext } from "react";
 
 import { AuthContext } from "../../context";
 
-import { close, more } from "../../img";
+import { close, more, inprogress } from "../../img";
 import { api } from "../../services/api";
+
 import "../../styles/publication.css";
 
 export const EditOrDeletePost = (props) => {
   const { updateDataPage } = useContext(AuthContext);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenModalDeletePost, setIsOpenModalDeletePost] = useState(false);
+  const [InProgressVisivle, setInProgressVisible] = useState(false);
 
   function btnOpenClose() {
     if (isOpenModal) {
@@ -27,6 +29,11 @@ export const EditOrDeletePost = (props) => {
   }
 
   function DeletePost() {
+    setInProgressVisible(true);
+
+    const body = document.querySelector("body");
+    body.style.overflow = "hidden";
+
     const token = localStorage.getItem("@Auth:token");
 
     if (props.PostId) {
@@ -38,6 +45,7 @@ export const EditOrDeletePost = (props) => {
         })
         .then((response) => {
           CloseDeletPost();
+          setInProgressVisible(false);
           updateDataPage(response.data);
         });
     }
@@ -78,24 +86,59 @@ export const EditOrDeletePost = (props) => {
   ) : (
     <>
       <div className="second_modal">
-        <div className="second_modal_btn_close" onClick={CloseDeletPost} />
-        <div className="second_modal_div">
-          <div className="second_modal_div_tags">
-            <h2 className="second_modal_h2">Excluir Publicação</h2>
-            <p className="second_modal_p">
-              Tem certeza de que deseja excluir essa publicação?
-            </p>
-            <button className="second_modal_btn_delete" onClick={DeletePost}>
-              Excluir
-            </button>
-            <button
-              className="second_modal_btn_cancel"
-              onClick={CloseDeletPost}
+        {!InProgressVisivle && (
+          <>
+            <div className="second_modal_btn_close" onClick={CloseDeletPost} />
+            <div className="second_modal_div">
+              <div className="second_modal_div_tags">
+                <h2 className="second_modal_h2">Excluir Publicação</h2>
+                <p className="second_modal_p">
+                  Tem certeza de que deseja excluir essa publicação?
+                </p>
+                <button
+                  className="second_modal_btn_delete"
+                  onClick={DeletePost}
+                >
+                  Excluir
+                </button>
+                <button
+                  className="second_modal_btn_cancel"
+                  onClick={CloseDeletPost}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+        {InProgressVisivle && (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxSizing: "content-box",
+                background: "black",
+                opacity: "58%",
+                zIndex: "4",
+                transform: props.transform,
+              }}
             >
-              Cancelar
-            </button>
-          </div>
-        </div>
+              <img
+                style={{
+                  width: "35px",
+                  height: "35px",
+                  animation: "loading 1s linear infinite 0ms",
+                }}
+                src={inprogress}
+              />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

@@ -1,0 +1,82 @@
+.Modal_following {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+}
+.Modal_following_size {
+  position: fixed;
+  width: 380px;
+  height: 390px;
+  background-color: white;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.title_following {
+  text-align: center;
+  font-weight: 400;
+  padding: 11px;
+  border-bottom: solid 1px #525252;
+}
+
+.div_users_following {
+  height: 85%;
+  overflow: auto;
+}
+.ul_users_following {
+  height: 100%;
+  list-style: none;
+  padding: 0 10px;
+}
+.li_users_following {
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link_users_following {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  align-items: center;
+}
+
+.following_p {
+  height: 100%;
+  display: flex;
+  font-size: x-large;
+  color: #292929;
+  align-items: center;
+  text-align: center;
+}
+
+.following_avatar {
+  width: 55px;
+  height: 55px;
+  background-image: url("../img/avatar-person.svg");
+  border-radius: 100%;
+  border: solid 1px lightslategrey;
+  background-repeat: no-repeat;
+}
+
+.following_username {
+  margin-inline: 10px auto;
+  font-size: large;
+}
+
+.following_btn {
+  background: blueviolet;
+  color: white;
+  width: 70px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  font-size: initial;
+  border-radius: 4px;
+  border: none;
+}

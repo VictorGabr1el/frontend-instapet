@@ -7,6 +7,8 @@ import { FormLogin } from "./FormLogin";
 import { Postagem } from "../pages/Postagem";
 import { EditOrDeletePost } from "../molecules/EditOrDeletePost";
 import { useModalDeletePost } from "./ModalDeletePost";
+import { ModalFollowing } from "./ModalFollowing";
+import { useModalFollowers } from "./ModalFollowers";
 
 export {
   Header,
@@ -18,4 +20,6 @@ export {
   Postagem,
   EditOrDeletePost,
   useModalDeletePost,
+  ModalFollowing,
+  useModalFollowers,
 };
