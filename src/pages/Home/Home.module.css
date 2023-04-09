@@ -80,3 +80,7 @@ main {
   text-decoration: none;
   color: black;
 }
+
+.footer_a:hover {
+  border-bottom: solid 1px #656565;
+}
