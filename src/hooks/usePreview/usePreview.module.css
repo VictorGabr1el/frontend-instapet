@@ -1,0 +1,24 @@
+.renderImg {
+  width: 100%;
+  height: 100%;
+  vertical-align: baseline;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.inputImg {
+  display: none;
+}
+
+.btnNewImg {
+  width: 100%;
+  min-height: 220px;
+  background: none;
+  border: none;
+  background-image: url("../../assents/images/can.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 70%;
+  background-size: 50px;
+  cursor: pointer;
+}

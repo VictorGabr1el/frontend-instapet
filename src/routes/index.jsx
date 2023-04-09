@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { PrivateRoute } from "./privateRoutes";
-import { Home, Login, User, Signup } from "../components/pages";
+import { Home, Login, User, Signup } from "../pages";
 import { StateProvider } from "../context";
 
 export const AppRouter = () => {

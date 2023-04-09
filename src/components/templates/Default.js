@@ -1,11 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext, StateContext } from "../../context";
 
-import { Header, NewPublication, Postagem } from "../organisms";
+import { Header } from "../Header";
+import { FullPublication } from "../FullPublication";
+import { NewPublication } from "../ModalNewPublication";
 
 export const Default = (props) => {
-  const { isVisibleFullPost, isVisibleNewPost } = useContext(StateContext);
+  const { isVisibleFullPost, isVisibleNewPublication } =
+    useContext(StateContext);
   const { currentUser } = useContext(AuthContext);
   const { postId } = useParams();
 
@@ -13,8 +16,8 @@ export const Default = (props) => {
     <div className="class_body">
       <Header user={currentUser} />
       {props.children}
-      {postId ? <Postagem /> : isVisibleFullPost && <Postagem />}
-      {isVisibleNewPost && <NewPublication />}
+      {(postId || isVisibleFullPost) && <FullPublication />}
+      {isVisibleNewPublication && <NewPublication />}
     </div>
   );
 };

@@ -58,7 +58,7 @@
 .following_avatar {
   width: 55px;
   height: 55px;
-  background-image: url("../img/avatar-person.svg");
+  background-image: url("../assents/images/avatar-person.svg");
   border-radius: 100%;
   border: solid 1px lightslategrey;
   background-repeat: no-repeat;

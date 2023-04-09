@@ -4,16 +4,31 @@ export const StateContext = createContext();
 
 export const StateProvider = ({ children }) => {
   const [isVisibleFullPost, setIsVisibleFullPost] = useState(false);
-  const [isVisibleNewPost, setIsVisibleNewPost] = useState(false);
+  const [isVisibleNewPublication, setIsVisibleNewPublication] = useState(false);
   const [isVisibleModifyPost, setIsVisibleModifyPost] = useState(false);
 
-  const OpenModalFullPost = (boolean) => {
-    setIsVisibleFullPost(boolean);
+  const body = document.querySelector("body");
+
+  function OpenModalFullPost(boolean) {
+    if (boolean === true) {
+      body.style.overflow = "hidden";
+      setIsVisibleFullPost(boolean);
+    } else {
+      body.style.overflow = "";
+      setIsVisibleFullPost(boolean);
+    }
+  }
+
+  const OpenModalNewPublication = (boolean) => {
+    if (boolean === true) {
+      setIsVisibleNewPublication(boolean);
+      body.style.overflow = "hidden";
+    } else {
+      setIsVisibleNewPublication(boolean);
+      body.style.overflow = "";
+    }
   };
 
-  const OpenModalNewPost = (boolean) => {
-    setIsVisibleNewPost(boolean);
-  };
   const OpenModalModifyPost = (boolean) => {
     setIsVisibleModifyPost(boolean);
   };
@@ -23,8 +38,8 @@ export const StateProvider = ({ children }) => {
       value={{
         OpenModalFullPost,
         isVisibleFullPost,
-        OpenModalNewPost,
-        isVisibleNewPost,
+        OpenModalNewPublication,
+        isVisibleNewPublication,
         OpenModalModifyPost,
         isVisibleModifyPost,
       }}

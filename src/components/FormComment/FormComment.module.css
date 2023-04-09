@@ -1,0 +1,52 @@
+.form_comment {
+  display: flex;
+  justify-content: center;
+}
+
+.input_comment {
+  width: 100%;
+  border: solid 1px #bac0c7;
+  border-radius: 4px 0 0 4px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 2px 6px;
+  outline: none;
+}
+
+.btn_comment_publication_global {
+  background: #6558f5;
+  border: #6558f5;
+  color: white;
+  border-radius: 2px;
+  margin-left: -1px;
+  padding: 8px 12px;
+  outline: none;
+  font-weight: 600;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.btn_comment_publication_global:hover {
+  background: #5144e4;
+}
+
+.sending_comment {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sending_comment_img {
+  width: 35px;
+  height: 35px;
+  animation: loading 1s linear infinite 0ms;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

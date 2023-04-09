@@ -1,0 +1,120 @@
+.Modal_New_Publication {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.btn_close {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 0;
+  opacity: 60%;
+}
+
+.form {
+  margin: 20px;
+  background: white;
+  min-width: 350px;
+  max-width: 600px;
+  max-height: 600px;
+  min-height: 350px;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.form_title {
+  background: #f7f7f7;
+  display: flex;
+  color: black;
+  width: 100%;
+  height: 9%;
+  border-radius: 6px 6px 0 0;
+}
+
+.form_title_p {
+  font-size: large;
+  font-weight: 500;
+  margin: 11px auto;
+}
+
+.form_input_img_post {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  height: 72%;
+  border-top: solid 1px #8d939a;
+  border-bottom: solid 1px #8d939a;
+}
+
+.form_input_legend {
+  display: flex;
+  height: 10%;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.legend {
+  width: 100%;
+  height: 50px;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 2px 6px;
+  outline: none;
+}
+
+.div_submit {
+  display: flex;
+  width: 100%;
+  height: 9%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.button_submit {
+  background: #6558f5;
+  border: #6558f5;
+  color: white;
+  padding: 10px 12px;
+  width: 100%;
+  height: 100%;
+  font-size: larger;
+  font-weight: 500;
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  outline: none;
+}
+
+.sending_publication {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  background: black;
+  opacity: 60%;
+  z-index: 4;
+}
+
+.sending_publication_img {
+  width: 35px;
+  height: 35px;
+  animation: loading 1s linear infinite 0ms;
+}

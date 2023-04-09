@@ -1,11 +1,11 @@
-import { api } from "../services/api";
+import { Api } from "../services/Api";
 
 export const Follow = (followId) => {
   if (followId) {
     const token = localStorage.getItem("@Auth:token");
 
     console.log(token, followId);
-    api({
+    Api({
       method: "post",
       url: `/following/${followId}`,
       headers: {

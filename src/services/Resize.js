@@ -1,9 +1,31 @@
 import { storage } from "./firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
-export const Resize = ({ src, width }) => {
-  function resizeImage(src, options) {
-    return loadImage(document.createElement("img"), src).then(function (image) {
+export const Resize = async (image) => {
+  const source = URL.createObjectURL(image);
+
+  const img = new Image();
+  img.src = source;
+
+  let width = [];
+
+  img.onload = async function () {
+    const wid =
+      (await image.size) < 513051
+        ? (this.width / 100) * 95
+        : image.size >= 513051 && image.size < 613051
+        ? (this.width / 100) * 90
+        : image.size >= 613051 && image.size < 893051
+        ? (this.width / 100) * 80
+        : (this.width / 100) * 65;
+
+    return width.push(wid);
+  };
+
+  function resizeImage(source, options) {
+    return loadImage(document.createElement("img"), source).then(function (
+      image
+    ) {
       const canvas = document.createElement("canvas");
 
       if (options.width && !options.height) {
@@ -25,9 +47,9 @@ export const Resize = ({ src, width }) => {
     });
   }
 
-  function loadImage(img, src) {
+  function loadImage(img, source) {
     return new Promise((resolve, reject) => {
-      img.src = src;
+      img.src = source;
       img.completed
         ? resolve(img)
         : img.addEventListener("load", function () {
@@ -38,8 +60,8 @@ export const Resize = ({ src, width }) => {
   }
 
   return new Promise((resolve) => {
-    resizeImage(src, { width: width }).then(function (blob) {
-      const storageRef = ref(storage, `images/${src}`);
+    resizeImage(source, { width: width }).then(function (blob) {
+      const storageRef = ref(storage, `images/${source}`);
 
       uploadBytes(storageRef, blob).then(() => {
         getDownloadURL(storageRef)

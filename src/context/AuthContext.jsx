@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { redirect } from "react-router-dom";
-import { api } from "../services/api";
+import { Api } from "../services/Api";
 
 export const AuthContext = createContext();
 
@@ -12,17 +12,17 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("@Auth:token");
 
     if (token) {
-      api
-        .get("/logado", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      Api.get("/logado", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then((response) => {
+          console.log(response.data);
           setCurrentUser(response.data);
         })
         .catch((error) => {
-          localStorage.clear();
+          // localStorage.clear();
           console.log(error);
           return setCurrentUser(null);
         });
@@ -32,15 +32,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const Signin = async ({ email, password }) => {
-    api
-      .post("/login", { email, password })
+    Api.post("/login", { email, password })
       .then((response) => {
         if (response.data.error) {
           return alert(response.data.message);
         } else {
           setCurrentUser(response.data.user);
 
-          api.defaults.headers.common[
+          Api.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${response.data.token}`;
 
@@ -48,20 +47,20 @@ export const AuthProvider = ({ children }) => {
         }
       })
       .catch((response) => {
-        alert(response.response.data.message);
+        alert(response.data.message);
       });
   };
 
   const Signup = async (data) => {
     try {
-      const response = await api.post("/register", data);
+      const response = await Api.post("/register", data);
 
       if (response.data.error) {
         return alert(response.data.message);
       } else {
         setCurrentUser(response.data.user);
 
-        api.defaults.headers.common[
+        Api.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`;
 
