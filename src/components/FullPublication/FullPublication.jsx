@@ -4,14 +4,15 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { StateContext, AuthContext } from "../../context";
 import { Api } from "../../services/Api";
 
-import { EditOrDeletePost } from "../EditOrDeletePost";
-import { FormComment } from "../FormComment";
-import { useLoading } from "../Loading";
-import { Comment } from "../Comment";
-
+import {
+  Comment,
+  CreatedAt,
+  EditOrDeletePost,
+  FormComment,
+  useLoading,
+} from "../";
 import { like, share } from "../../assents/images";
 import style from "./FullPublication.module.css";
-import { CreatedAt } from "../CreatedAt";
 
 export const FullPublication = () => {
   const { Loading, loading, setLoading } = useLoading();

@@ -1,8 +1,8 @@
-.user_main {
+main {
   margin-top: 90px;
 }
 
-.user_section {
+.section {
   max-width: 950px;
   margin-inline: auto;
 }
@@ -20,15 +20,15 @@
   justify-content: center;
 }
 
-.userpage_avatar {
+.avatar {
   width: 150px;
   height: 150px;
   border-radius: 100%;
-  background-image: url("../assents/images/avatar-person.svg");
+  background-image: url("../../assents/images/avatar-person.svg");
   background-repeat: no-repeat;
 }
 
-.div_info_user {
+.user_info {
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -39,16 +39,13 @@
   align-items: center;
 }
 
-.div_username div {
-  margin-right: 20px;
-}
-
 .username {
   font-size: xx-large;
   font-weight: 100;
+  margin-right: 20px;
 }
 
-.btn_editar_perfil {
+.btn_edit_perfil {
   font-weight: 500;
   padding: 4px 9px;
   background: white;
@@ -57,48 +54,41 @@
   cursor: pointer;
 }
 
-.ul_follows {
+.followings_and_followers {
   list-style: none;
   margin: 20px 0;
   padding: 0;
   display: flex;
 }
 
-.ul_follows li {
+.list {
   margin-right: 30px;
 }
 
-.userpage_followers button {
+.list_button {
   background: none;
   border: none;
   font-size: inherit;
   cursor: pointer;
 }
 
-.userpage_following button {
-  background: none;
-  border: none;
-  font-size: inherit;
-  cursor: pointer;
-}
-
-.user_full_name {
+.full_name {
   font-weight: 500;
 }
 
-.div_titule_publications {
+.publications_title {
   margin: 40px 0 20px 0;
   text-align: center;
   border-top: solid 1px #848484;
 }
 
-.div_titule_publications p {
+.title {
   margin-top: 6px;
   font-size: small;
   font-weight: 500;
 }
 
-.user_all_publications {
+.all_publications {
   display: flex;
   flex-wrap: wrap;
 }
@@ -110,17 +100,18 @@
   color: #2e2e2e;
 }
 
-.user_all_publications_img {
+.publication {
   width: 30%;
   margin: 0 1.65% 25px 1.65%;
-  -webkit-writing-mode: vertical-lr;
+  /* -webkit-writing-mode: vertical-lr; */
+  writing-mode: vertical-lr;
 }
 
-.user_all_publications_img img {
+.publication_img {
   aspect-ratio: 4/4;
   width: 100%;
 }
-.user_all_publications_img img:hover {
+
+.publication_img:hover {
   mix-blend-mode: multiply;
-  /* opacity: 0.9; */
 }

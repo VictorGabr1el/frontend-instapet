@@ -1,4 +1,4 @@
-import { storage } from "./firebase.js";
+import { storage } from "../../services/firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 export const Resize = async (image) => {

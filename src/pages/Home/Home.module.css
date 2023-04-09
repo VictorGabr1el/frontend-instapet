@@ -1,0 +1,82 @@
+main {
+  background-color: #dfe6ed;
+  display: flex;
+  font-family: system-ui;
+  margin-top: 60px;
+}
+
+.container {
+  max-width: 950px;
+  margin: 16px auto 0 auto;
+  display: flex;
+  column-gap: 50px;
+  width: 100%;
+}
+
+.section_publications {
+  width: 535px;
+  margin-left: auto;
+}
+
+.aside {
+  width: 270px;
+  margin-right: auto;
+}
+
+.div_fixed {
+  position: fixed;
+  width: inherit;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.current_user {
+  display: flex;
+  align-items: center;
+  margin: 20px auto 0 auto;
+  width: 100%;
+}
+
+.current_user_a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-right: 17px;
+  background-image: url("../../assents/images/avatar-person.svg");
+  border: solid 1px lightslategrey;
+  background-repeat: no-repeat;
+}
+
+.username {
+  margin: 0;
+  font-size: larger;
+  font-weight: 600;
+}
+
+.suggestions {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.suggestions_title {
+  margin: 20px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer_a {
+  text-decoration: none;
+  color: black;
+}

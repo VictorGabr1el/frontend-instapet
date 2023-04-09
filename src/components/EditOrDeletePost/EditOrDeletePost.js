@@ -1,13 +1,11 @@
 import { useState, useContext } from "react";
 
 import { AuthContext } from "../../context";
-
-import { close, more, inprogress } from "../../assents/images";
 import { Api } from "../../services/Api";
 
-import style from "./EditOrDeletePost.module.css";
-
 import { EditPublication } from "../ModalEditPublication";
+import { close, more, inprogress } from "../../assents/images";
+import style from "./EditOrDeletePost.module.css";
 
 export const EditOrDeletePost = (props) => {
   const { updateDataPage } = useContext(AuthContext);

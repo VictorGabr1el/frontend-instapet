@@ -1,9 +1,9 @@
 import { useState, useRef, useContext } from "react";
 
-import { Api } from "../../services/Api";
 import { AuthContext, StateContext } from "../../context";
-import { Resize } from "../../services/Resize.js";
-import { usePreview } from "../../hooks/usePreview";
+import { Api } from "../../services/Api";
+import { Resize } from "../../utils/Resize/Resize.js";
+import { usePreview } from "../../hooks";
 
 import { inprogress } from "../../assents/images";
 import style from "./NewPublication.module.css";
@@ -54,7 +54,7 @@ export const NewPublication = () => {
   }
 
   return (
-    <div className={style.Modal_Publication}>
+    <div className={style.Modal_New_Publication}>
       {!sendingPublication && (
         <div
           className={style.btn_close}

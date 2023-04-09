@@ -1,12 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Api } from "../../services/Api";
 
-import { useLoading } from "../Loading";
-import { usePreview } from "../../hooks/usePreview";
-import { useInProgress } from "../InProgress";
 import { AuthContext } from "../../context";
-import { Resize } from "../../services/Resize";
+import { Api } from "../../services/Api";
+import { Resize } from "../../utils";
+import { usePreview } from "../../hooks";
 
+import { useLoading, useInProgress } from "../";
 import style from "./EditPublication.module.css";
 
 export const EditPublication = (props) => {

@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 
 import { AuthContext } from "../../context";
 import { Api } from "../../services/Api";
-import { useLoading } from "../Loading";
-import { Suggestions } from "../Suggestions";
 
+import { useLoading, Suggestions } from "../";
 import style from "./useModalFollowers.module.css";
 
 export const useModalFollowers = () => {

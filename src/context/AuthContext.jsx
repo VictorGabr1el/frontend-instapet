@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           setCurrentUser(response.data);
         })
         .catch((error) => {

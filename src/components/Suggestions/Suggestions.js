@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Api } from "../../services/Api";
-import { inprogress } from "../../assents/images";
 import { AuthContext } from "../../context";
+import { Api } from "../../services/Api";
 import verifyIfFollowing from "./utils";
 
+import { inprogress } from "../../assents/images";
 import style from "./Suggestions.module.css";
 
 export const Suggestions = (props) => {

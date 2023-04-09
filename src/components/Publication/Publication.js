@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext, StateContext } from "../../context";
-import { EditOrDeletePost } from "../EditOrDeletePost";
-import { CreatedAt } from "../CreatedAt";
-import { FormComment } from "../FormComment";
-import { Comment } from "../Comment";
 
+import { EditOrDeletePost, CreatedAt, FormComment, Comment } from "../";
 import { like, share } from "../../assents/images";
 import style from "./Publication.module.css";
 

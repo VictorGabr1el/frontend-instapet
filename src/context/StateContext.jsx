@@ -21,8 +21,8 @@ export const StateProvider = ({ children }) => {
 
   const OpenModalNewPublication = (boolean) => {
     if (boolean === true) {
-      setIsVisibleNewPublication(boolean);
       body.style.overflow = "hidden";
+      setIsVisibleNewPublication(boolean);
     } else {
       setIsVisibleNewPublication(boolean);
       body.style.overflow = "";

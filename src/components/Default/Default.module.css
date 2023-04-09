@@ -1,0 +1,9 @@
+.Class_Body {
+  padding: 0;
+  margin: 0;
+  background: #dfe6ed;
+  box-sizing: border-box;
+  font-family: system-ui;
+  display: flex;
+  flex-direction: column;
+}

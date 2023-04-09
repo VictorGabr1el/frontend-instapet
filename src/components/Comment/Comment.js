@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import style from "./Comment.module.css";
+
 import { CreatedAt } from "../CreatedAt";
+import style from "./Comment.module.css";
 
 export const Comment = (props) => {
   return (

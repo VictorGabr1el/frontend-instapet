@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { Navigate, Link } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext.jsx";
-import { inprogress } from "../assents/images";
-import { Resize } from "../services/Resize.js";
+import { Resize } from "../utils";
 
+import { inprogress } from "../assents/images";
 import "../styles/signup.css";
 
 export const Signup = () => {

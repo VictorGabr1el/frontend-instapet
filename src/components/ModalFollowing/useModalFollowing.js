@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 
 import { AuthContext } from "../../context";
 import { Api } from "../../services/Api";
-import { useLoading } from "../Loading";
-import { Suggestions } from "../Suggestions";
 
+import { useLoading, Suggestions } from "../";
 import style from "./useModalFollowing.module.css";
 
 export const useModalFollowing = () => {
@@ -55,6 +54,7 @@ export const useModalFollowing = () => {
                       avatar={f.User.avatar}
                       username={f.User.username}
                       text={"seguindo"}
+                      verifyIfFollowing={true}
                       btn={() => setIsVisible(false)}
                     />
                   ))

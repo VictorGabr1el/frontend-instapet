@@ -31,7 +31,7 @@ function usePreview(props) {
           <img
             src={props.preview}
             className={style.renderImg}
-            alt="imagem da publicação"
+            alt=""
             onClick={(event) => {
               event.preventDefault();
               fileInputRef.current.click();
@@ -40,7 +40,7 @@ function usePreview(props) {
         ) : preview ? (
           <img
             className={style.renderImg}
-            alt="imagem da publicação"
+            alt=""
             src={preview}
             onClick={() => {
               fileInputRef.current.value = "";
