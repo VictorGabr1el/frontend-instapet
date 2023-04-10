@@ -25,6 +25,28 @@ function usePreview(props) {
         setRender(false);
       }
     }, [preview]);
+
+    const buttonStyle = {
+      width: "100%",
+      minHeight: "220px",
+      background: "none",
+      border: "none",
+      backgroundImage: "url(../../assents/images/avatar-person.svg)",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      opacity: "70%",
+      backgroundSize: "50px",
+      cursor: "pointer",
+    };
+
+    const imgStyle = {
+      width: "100%",
+      height: "100%",
+      verticalAlign: "baseline",
+      objectFit: "cover",
+      cursor: "pointer",
+    };
+
     return (
       <>
         {props.preview && !preview && render ? (
@@ -32,6 +54,7 @@ function usePreview(props) {
             src={props.preview}
             className={style.renderImg}
             alt=""
+            style={props.style}
             onClick={(event) => {
               event.preventDefault();
               fileInputRef.current.click();
@@ -41,6 +64,7 @@ function usePreview(props) {
           <img
             className={style.renderImg}
             alt=""
+            style={props.style}
             src={preview}
             onClick={() => {
               fileInputRef.current.value = "";
@@ -51,6 +75,7 @@ function usePreview(props) {
           <button
             type="button"
             className={style.btnNewImg}
+            style={props.style}
             onClick={(event) => {
               event.preventDefault();
               fileInputRef.current.click();

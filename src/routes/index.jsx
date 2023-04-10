@@ -10,7 +10,7 @@ export const AppRouter = () => {
     <StateProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
 
           <Route path="/" element={<PrivateRoute />}>

@@ -1,58 +1,57 @@
-.register_main {
+.main {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background-image: url("../assents/images/background1.jpg");
-  background-repeat: no-repeat;
+  background-image: url("../../assents/images/background1.jpg");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.container_form_signup {
+.container {
   margin: auto;
   max-width: 768px;
   display: flex;
 }
 
-.form_signup {
+.form {
   display: flex;
   padding: 1rem 2rem;
   border: solid 1px darkgray;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  width: 100%;
+  width: 400px;
   background-color: white;
 }
 
-.register_avatar {
-  width: 100px;
-  height: 100px;
-  border: solid 1px #959595;
-  background-image: url("../assents/images/avatar-person.svg");
-  background-repeat: no-repeat;
-  border-radius: 100%;
+.div_inputs {
+  width: 100%;
   box-sizing: border-box;
-  cursor: pointer;
+  margin-top: 6px;
 }
 
-.register_input {
+.label {
+  margin-left: 6px;
+  color: #242424;
+  font-size: small;
+}
+
+.input {
   border-radius: 3px;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 0.7rem 0.9rem;
-  margin: 4% 0 0 0;
-  width: 100%;
+  width: -webkit-fill-available;
   outline: none;
   transition: 0.3s ease-in-out;
   color: rgb(73, 69, 69);
 }
 
-.register_input:focus {
+.input:focus {
   border: 1px solid #078bdd;
 }
 
@@ -68,7 +67,7 @@
   color: blue;
 }
 
-.btn_cadastro {
+.btn_submit {
   background-color: #0fb3a5;
   border-radius: 20px;
   border: 1px solid #0fb3a5;
@@ -79,7 +78,6 @@
   padding: 0.6rem 20%;
   width: 80%;
   text-transform: uppercase;
-  transition: transform 80ms ease-in;
   outline: none;
   display: flex;
   align-items: center;
@@ -87,25 +85,32 @@
   margin-top: 3%;
   transition: 0.3s;
 }
-.btn_cadastro:hover {
-  background-color: #009f92;
+
+.btn_submit:active {
+  transform: scale(0.95);
 }
 
-@media (min-width: 345px) {
-  .form_signup {
-    min-width: 260px;
-  }
+.div_inprogress {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  background: black;
+  opacity: 65%;
+  z-index: 4;
 }
 
-@media (min-width: 700px) {
-  .form_signup {
-    display: flex;
-    padding: 1rem 2rem;
-    border: solid 1px darkgray;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 10px;
-    width: 400px;
-    background-color: white;
+.img_inprogress {
+  width: 35px;
+  height: 35px;
+  animation: loading 1s linear infinite 0ms;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
   }
 }

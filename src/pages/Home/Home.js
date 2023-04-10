@@ -24,7 +24,7 @@ export const Home = () => {
         <Loading />
       ) : (
         // <InProgress />
-        <main>
+        <main className={style.main}>
           <div className={style.container}>
             <section className={style.section_publications}>
               {/* <Status /> */}

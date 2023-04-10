@@ -36,7 +36,7 @@ export const User = () => {
       {loading ? (
         <Loading />
       ) : (
-        <main>
+        <main className={style.main}>
           <section className={style.section}>
             <div className={style.div_user}>
               <div className={style.div_user_avatar}>
