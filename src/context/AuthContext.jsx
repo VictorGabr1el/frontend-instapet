@@ -6,11 +6,10 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(true);
-  const [newData, setNewData] = useState([]);
+  const [newData, setNewData] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("@Auth:token");
-
     if (token) {
       Api.get("/logado", {
         headers: {
@@ -21,44 +20,32 @@ export const AuthProvider = ({ children }) => {
           setCurrentUser(response.data);
         })
         .catch((error) => {
-          // localStorage.clear();
+          setCurrentUser(false);
+          localStorage.clear();
           console.log(error);
-          return setCurrentUser(null);
+          return;
         });
     } else {
-      return setCurrentUser(null);
+      return setCurrentUser(false);
     }
   }, []);
 
-  const Signin = async ({ email, password }) => {
+  const Login = async ({ email, password }) => {
     Api.post("/login", { email, password })
       .then((response) => {
-        if (response.data.error) {
-          return alert(response.data.message);
-        } else {
-          setCurrentUser(response.data.user);
-
-          Api.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${response.data.token}`;
-
-          localStorage.setItem("@Auth:token", response.data.token);
-        }
+        console.log(response);
+        setCurrentUser(response.data.user);
+        localStorage.setItem("@Auth:token", response.data.token);
       })
-      .catch((response) => {
-        alert(response.data.message);
+      .catch((error) => {
+        alert(error.response.data.message);
       });
   };
 
   const Signup = async (data) => {
-    try {
-      const response = await Api.post("/register", data);
-
-      if (response.data.error) {
-        return alert(response.data.message);
-      } else {
+    Api.post("/register", data)
+      .then((response) => {
         setCurrentUser(response.data.user);
-
         Api.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`;
@@ -66,31 +53,27 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("@Auth:token", response.data.token);
 
         return redirect("/home");
-      }
-    } catch (response) {
-      return alert(response.response.data.message);
-    }
-  };
-
-  const updateDataPage = (data) => {
-    setNewData(data);
+      })
+      .catch((response) => {
+        console.log(response);
+        return alert(response.data);
+      });
   };
 
   const Singout = () => {
     localStorage.clear();
-    setCurrentUser(null);
-
-    return redirect("/login");
+    setCurrentUser(false);
+    return redirect("/");
   };
 
   return (
     <AuthContext.Provider
       value={{
         currentUser,
-        Signin,
+        Login,
         Signup,
         Singout,
-        updateDataPage,
+        updateDataPage: () => setNewData(!newData),
         signed: !!currentUser,
         newData,
       }}

@@ -6,7 +6,7 @@ import { AuthContext } from "../../context";
 import style from "./Login.module.css";
 
 export const Login = () => {
-  const { Signin, signed } = useContext(AuthContext);
+  const { Login, signed } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,7 +17,7 @@ export const Login = () => {
       password,
     };
 
-    await Signin(data);
+    await Login(data);
   };
 
   return !signed ? (

@@ -1,10 +1,26 @@
 import { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet, useParams, Navigate, useHref } from "react-router-dom";
 
-import { AuthContext } from "../context";
+import { AuthContext, StateContext } from "../context";
+import { FullPublication, NewPublication, Header } from "../components";
+
+import style from "../components/Default/Default.module.css";
 
 export const PrivateRoute = () => {
-  const { signed } = useContext(AuthContext);
+  const { postId } = useParams();
+  const href = useHref();
+  const { currentUser, signed } = useContext(AuthContext);
+  const { isVisibleFullPost, isVisibleNewPublication } =
+    useContext(StateContext);
 
-  return signed ? <Outlet /> : <Navigate to="/login" />;
+  return signed ? (
+    <div className={style.Class_Body}>
+      <Header user={currentUser} />
+      <Outlet />
+      {(postId || isVisibleFullPost) && <FullPublication />}
+      {isVisibleNewPublication && <NewPublication />}
+    </div>
+  ) : (
+    href !== "/" && <Navigate to={"/"} />
+  );
 };

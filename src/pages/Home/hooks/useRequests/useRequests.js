@@ -3,15 +3,17 @@ import { Api } from "../../../../services/Api";
 import { AuthContext } from "../../../../context";
 
 export const useRequests = () => {
-  const { newData } = useContext(AuthContext);
+  const { newData, currentUser } = useContext(AuthContext);
   const [user, setUser] = useState([]);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    Api.get("/users").then((response) => {
-      setUser(response.data.randomUsers);
-    });
-  }, []);
+    if (currentUser.id) {
+      Api.get(`/random/${currentUser.id}`).then((response) => {
+        setUser(response.data);
+      });
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     Api.get("/post").then((response) => {

@@ -38,6 +38,7 @@
   border-radius: 7px;
   box-sizing: border-box;
   z-index: 1;
+  contain: content;
 }
 
 .edit_publication_title {

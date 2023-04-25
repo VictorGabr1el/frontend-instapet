@@ -28,7 +28,7 @@ export const FormComment = (props) => {
       },
     })
       .then((response) => {
-        updateDataPage(response.data);
+        updateDataPage();
         comment.value = "";
         setSendingComment(false);
       })
@@ -52,7 +52,11 @@ export const FormComment = (props) => {
         </button>
         {sendingComment && (
           <div className={style.sending_comment}>
-            <img className={style.sending_comment_img} src={inprogress} />
+            <img
+              className={style.sending_comment_img}
+              src={inprogress}
+              alt=""
+            />
           </div>
         )}
       </form>

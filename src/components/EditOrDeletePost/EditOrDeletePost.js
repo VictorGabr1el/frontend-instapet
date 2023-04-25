@@ -90,7 +90,7 @@ export const EditOrDeletePost = (props) => {
           .then((response) => {
             body.style.overflow = "";
             setInProgressVisible(false);
-            updateDataPage(response.data);
+            updateDataPage();
           })
           .catch((e) => {
             console.log(e);

@@ -12,6 +12,16 @@
   color: black;
 }
 
+.avatar {
+  width: 36px;
+  height: 36px;
+  background-image: url("../../assents/images/avatar-person.svg");
+  border-radius: 100%;
+  border: solid 1px lightslategrey;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
 .user_suggestions p {
   margin-left: 10px;
 }

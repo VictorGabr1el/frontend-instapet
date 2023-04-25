@@ -18,7 +18,6 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const [imgUser, setImgUser] = useState("");
 
   const newUser = (e) => {
     e.preventDefault();
@@ -56,7 +55,7 @@ export const Signup = () => {
                 style={{
                   width: "120px",
                   height: "120px",
-                  verticalAlign: "baseline",
+                  verticalAlign: "bottom",
                   objectFit: "cover",
                   cursor: "pointer",
                   border: "solid 1px #959595",

@@ -36,7 +36,7 @@ export const NewPublication = () => {
           },
         })
           .then((response) => {
-            updateDataPage(response.data);
+            updateDataPage();
             setSendingPublication(false);
             OpenModalNewPublication(false);
           })

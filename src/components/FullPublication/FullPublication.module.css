@@ -10,6 +10,15 @@
   z-index: 3;
 }
 
+.btn_close {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 0;
+  opacity: 55%;
+}
+
 .article {
   width: 930px;
   margin-inline: auto;
@@ -56,6 +65,17 @@
   box-sizing: border-box;
   height: 15%;
 }
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background-image: url(http://localhost:3000/static/media/avatar-person.64c66a5….svg);
+  border-radius: 100%;
+  border: solid 1px lightslategrey;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
 .post_user P {
   margin-left: 8px;
 }

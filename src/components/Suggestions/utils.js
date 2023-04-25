@@ -1,5 +1,5 @@
 export default function verifyIfFollowing(data, userId) {
-  const ID = data.map((f) => f.followingId === userId);
+  const ID = data.map((user) => user.followingId === userId);
 
   return new Promise(function (resolve) {
     for (const nun of ID) {

@@ -26,32 +26,58 @@ export const EditPublication = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
-  function Edit(e) {
+  async function Edit(e) {
     e.preventDefault();
 
     IsInProgress(true);
     const legend = legendRef.current.value;
     const token = localStorage.getItem("@Auth:token");
 
-    Resize(image)
-      .then((ImgUrl) => {
-        Api({
-          url: `/post/${props.PostId}`,
-          method: "put",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          data: { legend, ImgUrl },
-        }).then((response) => {
-          updateDataPage(response.data);
+    if (!image) {
+      Api({
+        url: `/post/${props.PostId}`,
+        method: "put",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { legend },
+      })
+        .then(() => {
+          updateDataPage();
           IsInProgress(false);
           props.btn();
+        })
+        .catch((e) => {
+          console.log(e);
+          IsInProgress(false);
         });
+    } else {
+      const ImgUrl = await Resize(image);
+
+      const data = {
+        legend: legend !== post.legend && legend,
+        ImgUrl,
+      };
+      console.log(data);
+
+      Api({
+        url: `/post/${props.PostId}`,
+        method: "put",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { data },
       })
-      .catch((e) => {
-        console.log(e);
-        IsInProgress(false);
-      });
+        .then(() => {
+          updateDataPage();
+          IsInProgress(false);
+          props.btn();
+        })
+        .catch((e) => {
+          console.log(e);
+          IsInProgress(false);
+        });
+    }
   }
 
   return loading ? (
@@ -80,6 +106,7 @@ export const EditPublication = (props) => {
                   className={style.edit_publication_legend_input}
                   type="text"
                   ref={legendRef}
+                  maxLength={400}
                   name="legend"
                   defaultValue={post.legend}
                   placeholder="Adicione uma legenda..."

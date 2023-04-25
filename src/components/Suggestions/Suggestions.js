@@ -14,11 +14,13 @@ export const Suggestions = (props) => {
   const [text, setText] = useState(props.text);
 
   props.verifyIfFollowing &&
-    verifyIfFollowing(currentUser.Followings, props.userId).then((res) => {
-      if (res) {
-        setText("seguindo");
+    verifyIfFollowing(currentUser.Followings, props.userId).then(
+      (following) => {
+        if (following) {
+          setText("seguindo");
+        }
       }
-    });
+    );
 
   const token = localStorage.getItem("@Auth:token");
 
@@ -43,19 +45,20 @@ export const Suggestions = (props) => {
 
   function unFollow() {
     setLoading(true);
-    Api.delete(`/following/${props.userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(() => {
-        setLoading(false);
-        setText("seguir");
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
+    // Api(`/following/${props.userId}`, {
+    //   method: "delete",
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then(() => {
+    //     setLoading(false);
+    //     setText("seguir");
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false);
+    //     console.log(error);
+    //   });
   }
 
   return (
@@ -67,12 +70,12 @@ export const Suggestions = (props) => {
             onClick={props.btn}
             className={style.user_suggestions}
           >
-            <img className="avatar" src={props.avatar} alt="" />
+            <img className={style.avatar} src={props.avatar} alt="" />
             <p>{props.username}</p>
           </Link>
         </div>
         <div className={style.div_display_flex}>
-          {loading ? (
+          {loading === true ? (
             <img alt="icon" className={style.in_progress} src={inprogress} />
           ) : (
             <button

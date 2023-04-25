@@ -34,6 +34,7 @@ export const FullPublication = () => {
       Api.get(`/post/${postId}`)
         .then((response) => {
           setLoading(false);
+          console.log(response.data);
           setPost(response.data);
         })
         .catch((error) => {
@@ -54,7 +55,7 @@ export const FullPublication = () => {
     <>
       <div className={style.modal_fullpublication} key={post.id}>
         <Link
-          className="btn_close"
+          className={style.btn_close}
           onClick={functionClose}
           to={userId ? `/user/${userId}` : "/home"}
         ></Link>
@@ -64,7 +65,7 @@ export const FullPublication = () => {
           </div>
           <div className={style.interactions}>
             <div className={style.post_user}>
-              <img className="avatar" src={post.User.avatar} />
+              <img className={style.avatar} src={post.User.avatar} />
               <p>{post.User.username}</p>
               {currentUser.id === post.User.id && (
                 <EditOrDeletePost PostId={post.id} />

@@ -4,23 +4,27 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 export const Resize = async (image) => {
   const source = URL.createObjectURL(image);
 
-  const img = new Image();
-  img.src = source;
+  function getImgSize(image) {
+    const img = new Image();
+    return new Promise((res, rej) => {
+      img.onload = function () {
+        const width =
+          image.size < 513051
+            ? (this.width / 100) * 95
+            : image.size >= 513051 && image.size < 613051
+            ? (this.width / 100) * 90
+            : image.size >= 613051 && image.size < 893051
+            ? (this.width / 100) * 80
+            : (this.width / 100) * 65;
+        res(width);
+      };
+      img.src = source;
+    });
+  }
 
-  let width = [];
+  const width = await getImgSize(image).then((size) => size);
 
-  img.onload = async function () {
-    const wid =
-      (await image.size) < 513051
-        ? (this.width / 100) * 95
-        : image.size >= 513051 && image.size < 613051
-        ? (this.width / 100) * 90
-        : image.size >= 613051 && image.size < 893051
-        ? (this.width / 100) * 80
-        : (this.width / 100) * 65;
-
-    return width.push(wid);
-  };
+  console.log(width);
 
   function resizeImage(source, options) {
     return loadImage(document.createElement("img"), source).then(function (
@@ -39,6 +43,8 @@ export const Resize = async (image) => {
         .getContext("2d")
         .drawImage(image, 0, 0, canvas.width, canvas.height);
 
+      console.log(canvas);
+
       return new Promise(function (resolve) {
         canvas.toBlob(resolve, "image/webp");
 
@@ -50,6 +56,7 @@ export const Resize = async (image) => {
   function loadImage(img, source) {
     return new Promise((resolve, reject) => {
       img.src = source;
+      console.log(img);
       img.completed
         ? resolve(img)
         : img.addEventListener("load", function () {

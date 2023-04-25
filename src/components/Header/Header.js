@@ -25,7 +25,13 @@ export const Header = () => {
               placeholder="pesquisar"
             />
             <button className={style.btn_signout} onClick={Singout}>
-              <img className={style.img_signout} src={signout} alt="sign out" />
+              <Link to={"/"}>
+                <img
+                  className={style.img_signout}
+                  src={signout}
+                  alt="sign out"
+                />
+              </Link>
             </button>
             <Link className={style.Link_home_page} to={"/home"}>
               <img

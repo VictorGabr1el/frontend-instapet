@@ -26,27 +26,6 @@ function usePreview(props) {
       }
     }, [preview]);
 
-    const buttonStyle = {
-      width: "100%",
-      minHeight: "220px",
-      background: "none",
-      border: "none",
-      backgroundImage: "url(../../assents/images/avatar-person.svg)",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      opacity: "70%",
-      backgroundSize: "50px",
-      cursor: "pointer",
-    };
-
-    const imgStyle = {
-      width: "100%",
-      height: "100%",
-      verticalAlign: "baseline",
-      objectFit: "cover",
-      cursor: "pointer",
-    };
-
     return (
       <>
         {props.preview && !preview && render ? (
@@ -66,7 +45,8 @@ function usePreview(props) {
             alt=""
             style={props.style}
             src={preview}
-            onClick={() => {
+            onClick={(event) => {
+              event.preventDefault();
               fileInputRef.current.value = "";
               setImage(null);
             }}
@@ -89,6 +69,7 @@ function usePreview(props) {
           ref={fileInputRef}
           accept="image/*"
           onChange={(event) => {
+            event.preventDefault();
             const file = event.target.files[0];
             if (file && file.type.substr(0, 5) === "image") {
               setImage(file);
