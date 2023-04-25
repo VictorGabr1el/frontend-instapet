@@ -45,20 +45,20 @@ export const Suggestions = (props) => {
 
   function unFollow() {
     setLoading(true);
-    // Api(`/following/${props.userId}`, {
-    //   method: "delete",
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // })
-    //   .then(() => {
-    //     setLoading(false);
-    //     setText("seguir");
-    //   })
-    //   .catch((error) => {
-    //     setLoading(false);
-    //     console.log(error);
-    //   });
+    Api(`/following/${props.userId}`, {
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(() => {
+        setLoading(false);
+        setText("seguir");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   }
 
   return (
