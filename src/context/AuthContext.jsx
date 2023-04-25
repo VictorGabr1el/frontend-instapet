@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { redirect } from "react-router-dom";
-import { Api } from "../services/Api";
+import { Api } from "../services";
 
 export const AuthContext = createContext();
 
