@@ -8,11 +8,12 @@ import { Header } from "./Header";
 import { useInProgress } from "./InProgress";
 import { useLoading } from "./Loading";
 import { EditPublication } from "./ModalEditPublication";
-import { useModalFollowers } from "./ModalFollowers";
-import { useModalFollowing } from "./ModalFollowing";
+import { ModalFollowers } from "./ModalFollowers";
+import { ModalFollowings } from "./ModalFollowings";
 import { NewPublication } from "./ModalNewPublication";
 import { Publication } from "./Publication";
 import { Suggestions } from "./Suggestions";
+import { EditProfile } from "./EditProfile";
 
 export {
   Comment,
@@ -25,9 +26,10 @@ export {
   useInProgress,
   useLoading,
   EditPublication,
-  useModalFollowers,
-  useModalFollowing,
+  ModalFollowers,
+  ModalFollowings,
   NewPublication,
   Publication,
   Suggestions,
+  EditProfile,
 };

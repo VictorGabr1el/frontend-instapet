@@ -87,7 +87,7 @@ export const EditOrDeletePost = (props) => {
             Authorization: `Bearer ${token}`,
           },
         })
-          .then((response) => {
+          .then(() => {
             body.style.overflow = "";
             setInProgressVisible(false);
             updateDataPage();

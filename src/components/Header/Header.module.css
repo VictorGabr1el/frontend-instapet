@@ -30,11 +30,36 @@
   align-items: center;
 }
 
+.form_search {
+  display: flex;
+  align-items: center;
+}
+
 .input_search {
   border: solid 2px #747d85;
-  border-radius: 6px;
+  border-radius: 100px;
   margin-right: 90px;
-  padding: 4px 6px;
+  padding: 5px 32px 5px 6px;
+  outline: none;
+}
+
+.btn_search {
+  background: #747d85;
+  border: none;
+  outline: none;
+  position: absolute;
+  transform: translateX(174px);
+  border-radius: 100%;
+  width: 28.1px;
+  height: 28.1px;
+  cursor: pointer;
+}
+
+.img_search {
+  width: 20px;
+  height: 20px;
+  transition: 0.3s;
+  vertical-align: bottom;
 }
 
 .btn_signout {

@@ -9,7 +9,7 @@ export const Comment = (props) => {
       <div className={style.coment_component}>
         <div className={style.user_comment}>
           <Link to={`/user/${props.userId}`}>
-            <img className="avatar" src={props.avatar} alt="" />
+            <img className={style.avatar} src={props.avatar} alt="" />
           </Link>
         </div>
         <div className={style.comment_content}>

@@ -1,3 +1,3 @@
-import { useModalFollowers } from "./useModalFollowers";
+import { ModalFollowers } from "./ModalFollowers";
 
-export { useModalFollowers };
+export { ModalFollowers };

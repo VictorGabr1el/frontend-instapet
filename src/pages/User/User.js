@@ -6,26 +6,24 @@ import { AuthContext, StateContext } from "../../context";
 import { Follow } from "../../utils/Follow";
 
 import {
-  Default,
   useLoading,
-  useModalFollowers,
-  useModalFollowing,
+  ModalFollowers,
+  ModalFollowings,
+  EditProfile,
 } from "../../components";
 
 import style from "./User.module.css";
-import { EditProfile } from "../../components/EditProfile/EditProfile";
-import { findAllByDisplayValue } from "@testing-library/react";
 
 export const User = () => {
   const { currentUser, newData } = useContext(AuthContext);
   const { OpenModalFullPost } = useContext(StateContext);
   const { Loading, loading, setLoading } = useLoading();
-  const { ModalFollowing, ShowFollowing } = useModalFollowing();
-  const { ModalFollowers, showFollowers } = useModalFollowers();
-
   const { userId } = useParams();
+
   const [userPage, setUserPage] = useState(false);
   const [showModalEditProfile, setShowModalEditProfile] = useState(false);
+  const [showModalFollowers, setShowModalFollowers] = useState(false);
+  const [showModalFollowings, setShowModalFollowings] = useState(false);
 
   useEffect(() => {
     Api.get(`/user/${userId}`).then((response) => {
@@ -71,7 +69,7 @@ export const User = () => {
                   {
                     <button
                       className={style.list_button}
-                      onClick={() => showFollowers(true)}
+                      onClick={() => setShowModalFollowers(true)}
                     >
                       <strong>{userPage.Followers.length}</strong> seguidores
                     </button>
@@ -80,7 +78,7 @@ export const User = () => {
                 <li className={style.list}>
                   <button
                     className={style.list_button}
-                    onClick={() => ShowFollowing(true)}
+                    onClick={() => setShowModalFollowings(true)}
                   >
                     <strong>{userPage.Followings.length}</strong> seguindo
                   </button>
@@ -124,8 +122,12 @@ export const User = () => {
           </div>
         </section>
       </main>
-      {ModalFollowing && <ModalFollowing />}
-      {ModalFollowers && <ModalFollowers />}
+      {showModalFollowings && (
+        <ModalFollowings showModal={() => setShowModalFollowings(false)} />
+      )}
+      {showModalFollowers && ModalFollowers && (
+        <ModalFollowers showModal={() => setShowModalFollowers(false)} />
+      )}
       {showModalEditProfile && (
         <EditProfile btn={() => setShowModalEditProfile(false)} />
       )}

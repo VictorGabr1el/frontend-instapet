@@ -1,14 +1,22 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext, StateContext } from "../../context";
 
-import { home, Add, signout } from "../../assents/images";
+import { home, Add, signout, search } from "../../assents/images";
 import style from "./Header.module.css";
 
 export const Header = () => {
   const { Singout, currentUser } = useContext(AuthContext);
   const { OpenModalNewPublication } = useContext(StateContext);
+  const searchRef = useRef();
+  const navigate = useNavigate();
+
+  function Search(event) {
+    event.preventDefault();
+    const username = searchRef.current.value;
+    return navigate(`/search/${username}`);
+  }
 
   return (
     <>
@@ -18,12 +26,20 @@ export const Header = () => {
             <h1 className={style.title}>InstaPet</h1>
           </div>
           <div className={style.nav_buttons}>
-            <input
-              className={style.input_search}
-              type="text"
-              name="pesquisar"
-              placeholder="pesquisar"
-            />
+            <form onSubmit={Search} className={style.form_search}>
+              <input
+                className={style.input_search}
+                type="text"
+                name="search"
+                required={true}
+                ref={searchRef}
+                placeholder="pesquisar"
+              />
+              <button className={style.btn_search} type="submit">
+                <img src={search} className={style.img_search} alt="" />
+              </button>
+            </form>
+
             <button className={style.btn_signout} onClick={Singout}>
               <Link to={"/"}>
                 <img

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { PrivateRoute } from "./privateRoutes";
-import { Home, Login, Signup, User } from "../pages";
+import { Home, Login, Signup, User, Search } from "../pages";
 
 import { StateProvider } from "../context";
 
@@ -16,6 +16,7 @@ export const AppRouter = () => {
           <Route path="/" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/home/:postId" element={<Home />} />
+            <Route path="/search/:username" element={<Search />} />
             <Route path="/user/:userId" element={<User />} />
             <Route path="/user/:userId/post/:postId" element={<User />} />
           </Route>

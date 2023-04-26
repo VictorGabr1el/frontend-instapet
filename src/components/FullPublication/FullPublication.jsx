@@ -34,7 +34,6 @@ export const FullPublication = () => {
       Api.get(`/post/${postId}`)
         .then((response) => {
           setLoading(false);
-          console.log(response.data);
           setPost(response.data);
         })
         .catch((error) => {

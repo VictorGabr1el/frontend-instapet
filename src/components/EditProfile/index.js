@@ -1,3 +1,3 @@
-import { useEditProfile } from "./EditProfile";
+import { EditProfile } from "./EditProfile";
 
-export { useEditProfile };
+export { EditProfile };

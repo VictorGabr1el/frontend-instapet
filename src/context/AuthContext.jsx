@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       return setCurrentUser(false);
     }
-  }, []);
+  }, [newData]);
 
   const Login = async ({ email, password }) => {
     Api.post("/login", { email, password })

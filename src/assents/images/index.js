@@ -11,6 +11,7 @@ import home from "./house.svg";
 import signout from "./signout.svg";
 import close from "./close.svg";
 import inprogress from "./Frame.svg";
+import search from "./search.svg";
 
 export {
   Add,
@@ -24,6 +25,7 @@ export {
   heart,
   home,
   signout,
+  search,
   close,
   inprogress,
 };

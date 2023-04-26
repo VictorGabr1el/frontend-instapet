@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../../context";
@@ -13,14 +13,17 @@ export const Suggestions = (props) => {
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState(props.text);
 
-  props.verifyIfFollowing &&
-    verifyIfFollowing(currentUser.Followings, props.userId).then(
-      (following) => {
-        if (following) {
-          setText("seguindo");
+  useEffect(() => {
+    if (props.verifyIfFollowing) {
+      verifyIfFollowing(currentUser.Followings, props.userId).then(
+        (following) => {
+          if (following) {
+            setText("seguindo");
+          }
         }
-      }
-    );
+      );
+    }
+  }, []);
 
   const token = localStorage.getItem("@Auth:token");
 
@@ -45,8 +48,7 @@ export const Suggestions = (props) => {
 
   function unFollow() {
     setLoading(true);
-    Api(`/following/${props.userId}`, {
-      method: "delete",
+    Api.delete(`/following/${props.userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

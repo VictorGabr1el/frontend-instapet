@@ -3,10 +3,10 @@ import { useContext, useRef } from "react";
 import { AuthContext } from "../../context";
 import { usePreview } from "../../hooks";
 import { Api } from "../../services/Api";
-
 import { useInProgress } from "../";
-import style from "./EditProfile.module.css";
 import { Resize } from "../../utils";
+
+import style from "./EditProfile.module.css";
 
 export const EditProfile = (props) => {
   const { currentUser, updateDataPage } = useContext(AuthContext);

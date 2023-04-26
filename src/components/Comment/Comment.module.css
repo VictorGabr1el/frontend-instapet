@@ -9,6 +9,16 @@
   border-radius: 30px;
 }
 
+.avatar {
+  width: 36px;
+  height: 36px;
+  background-image: url(http://localhost:3000/static/media/avatar-person.64c66a5….svg);
+  border-radius: 100%;
+  border: solid 1px lightslategrey;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
 .comment_content {
   margin-left: 9px;
   background: #e9e9e9;
