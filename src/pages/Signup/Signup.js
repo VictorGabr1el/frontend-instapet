@@ -43,8 +43,6 @@ export const Signup = () => {
           confirmPass: confirmPassRef.current.value,
         };
 
-        console.log(data);
-
         Signup(data);
         setRegistering(false);
       })
