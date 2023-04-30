@@ -12,9 +12,7 @@ export const Home = () => {
   const { user, posts } = useRequests();
   const { Loading } = useLoading();
 
-  return !posts || !user ? (
-    <Loading />
-  ) : (
+  return user.length > 0 && posts.length > 0 ? (
     <main className={style.main}>
       <div className={style.container}>
         <section className={style.section_publications}>
@@ -62,7 +60,6 @@ export const Home = () => {
                       avatar={users.avatar}
                       username={users.username}
                       key={users.id}
-                      verifyIfFollowing={true}
                       text={"seguir"}
                     />
                   ))}
@@ -99,5 +96,7 @@ export const Home = () => {
         </aside>
       </div>
     </main>
+  ) : (
+    <Loading />
   );
 };

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import { StateContext, AuthContext } from "../../context";
 import { Api } from "../../services/Api";
-
 import {
   Comment,
   CreatedAt,
@@ -11,14 +10,16 @@ import {
   FormComment,
   useLoading,
 } from "../";
+
 import { like, share } from "../../assents/images";
 import style from "./FullPublication.module.css";
 
 export const FullPublication = () => {
-  const { Loading, loading, setLoading } = useLoading();
-  const { postId, userId } = useParams();
   const { newData, currentUser } = useContext(AuthContext);
-  const { OpenModalFullPost } = useContext(StateContext);
+  const { OpenModalFullPost, OpenModalError } = useContext(StateContext);
+  const { Loading, loading, setLoading } = useLoading();
+
+  const { postId, userId } = useParams();
   const [post, setPost] = useState([]);
 
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export const FullPublication = () => {
         })
         .catch((error) => {
           OpenModalFullPost(false);
-          console.log(error);
+          OpenModalError(true, error);
           return navigate("/home");
         });
   }, [postId, newData]);

@@ -81,6 +81,15 @@
   font-weight: 500;
 }
 
+.div_biograph {
+  margin-top: 10px;
+  max-width: 500px;
+}
+.biograph {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 .publications_title {
   margin: 40px 0 20px 0;
   text-align: center;

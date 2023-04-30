@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react";
 
-import { AuthContext } from "../../context";
+import { AuthContext, StateContext } from "../../context";
 import { usePreview } from "../../hooks";
 import { Api } from "../../services/Api";
 import { useInProgress } from "../";
@@ -10,6 +10,7 @@ import style from "./EditProfile.module.css";
 
 export const EditProfile = (props) => {
   const { currentUser, updateDataPage } = useContext(AuthContext);
+  const { OpenModalError } = useContext(StateContext);
   const { InputImg, image } = usePreview();
   const { InProgress, IsInProgress } = useInProgress();
 
@@ -37,7 +38,7 @@ export const EditProfile = (props) => {
           username: username.length > 0 ? username : currentUser.username,
           name: name.length > 0 ? name : currentUser.name,
           avatar: currentUser.avatar,
-          // biograph: biograph.length > 0? biograph: currentUser.biograph,
+          biograph: biograph.length > 0 ? biograph : currentUser.biograph,
         },
       })
         .then(() => {
@@ -46,7 +47,7 @@ export const EditProfile = (props) => {
         })
         .catch((error) => {
           IsInProgress(false);
-          alert(error);
+          return OpenModalError(true, error);
         });
     } else {
       const imageUrl = await Resize(image);
@@ -61,7 +62,7 @@ export const EditProfile = (props) => {
           username: username.length > 0 ? username : currentUser.username,
           name: name.length > 0 ? name : currentUser.name,
           avatar: imageUrl,
-          // biograph: biograph.length > 0? biograph: currentUser.biograph,
+          biograph: biograph.length > 0 ? biograph : currentUser.biograph,
         },
       })
         .then(() => {
@@ -70,7 +71,7 @@ export const EditProfile = (props) => {
         })
         .catch((error) => {
           IsInProgress(false);
-          alert(error);
+          return OpenModalError(true, error);
         });
     }
   }
@@ -106,6 +107,7 @@ export const EditProfile = (props) => {
                 type="text"
                 minLength={4}
                 maxLength={20}
+                autoComplete="off"
                 name="username"
                 ref={usernameRef}
               />
@@ -118,6 +120,7 @@ export const EditProfile = (props) => {
                 maxLength={40}
                 minLength={2}
                 type="text"
+                autoComplete="off"
                 name="name"
               />
             </div>
@@ -125,6 +128,9 @@ export const EditProfile = (props) => {
               <label className={style.label}>Biografia</label>
               <textarea
                 className={style.textarea}
+                minLength={1}
+                maxLength={200}
+                autoComplete="off"
                 type="text"
                 name="biograph"
                 ref={biographRef}

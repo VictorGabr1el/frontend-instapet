@@ -1,6 +1,5 @@
 import { Comment } from "./Comment";
 import { CreatedAt } from "./CreatedAt";
-import { Default } from "./Default";
 import { EditOrDeletePost } from "./EditOrDeletePost";
 import { FormComment } from "./FormComment";
 import { FullPublication } from "./FullPublication";
@@ -14,11 +13,11 @@ import { NewPublication } from "./ModalNewPublication";
 import { Publication } from "./Publication";
 import { Suggestions } from "./Suggestions";
 import { EditProfile } from "./EditProfile";
+import { ModalError } from "./ModalError/ModalError";
 
 export {
   Comment,
   CreatedAt,
-  Default,
   EditOrDeletePost,
   FormComment,
   FullPublication,
@@ -32,4 +31,5 @@ export {
   Publication,
   Suggestions,
   EditProfile,
+  ModalError,
 };

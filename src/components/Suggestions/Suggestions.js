@@ -1,20 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { AuthContext } from "../../context";
+import { AuthContext, StateContext } from "../../context";
 import { Api } from "../../services/Api";
-import verifyIfFollowing from "./utils";
 
 import { inprogress } from "../../assents/images";
+import verifyIfFollowing from "./utils";
 import style from "./Suggestions.module.css";
 
 export const Suggestions = (props) => {
   const { currentUser } = useContext(AuthContext);
+  const { OpenModalError } = useContext(StateContext);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState(props.text);
 
   useEffect(() => {
-    if (props.verifyIfFollowing) {
+    if (props.verifyIfFollowing && currentUser.Followings) {
       verifyIfFollowing(currentUser.Followings, props.userId).then(
         (following) => {
           if (following) {
@@ -23,7 +24,7 @@ export const Suggestions = (props) => {
         }
       );
     }
-  }, []);
+  }, [currentUser.Followings]);
 
   const token = localStorage.getItem("@Auth:token");
 
@@ -42,7 +43,7 @@ export const Suggestions = (props) => {
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
+        return OpenModalError(true, error);
       });
   }
 
@@ -59,7 +60,7 @@ export const Suggestions = (props) => {
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
+        return OpenModalError(true, error);
       });
   }
 
@@ -72,22 +73,30 @@ export const Suggestions = (props) => {
             onClick={props.btn}
             className={style.user_suggestions}
           >
-            <img className={style.avatar} src={props.avatar} alt="" />
-            <p>{props.username}</p>
+            <img
+              className={style.avatar}
+              style={props.avatarStyle}
+              src={props.avatar}
+              alt=""
+            />
+            <p style={props.usenameStyle}>{props.username}</p>
           </Link>
         </div>
-        <div className={style.div_display_flex}>
-          {loading === true ? (
-            <img alt="icon" className={style.in_progress} src={inprogress} />
-          ) : (
-            <button
-              className={style.btn_follow}
-              onClick={text === "seguir" ? Follow : unFollow}
-            >
-              {text}
-            </button>
-          )}
-        </div>
+        {currentUser.id !== props.userId && (
+          <div className={style.div_display_flex}>
+            {loading === true ? (
+              <img alt="icon" className={style.in_progress} src={inprogress} />
+            ) : (
+              <button
+                style={props.btnStyle}
+                className={style.btn_follow}
+                onClick={text === "seguir" ? Follow : unFollow}
+              >
+                {text}
+              </button>
+            )}
+          </div>
+        )}
       </li>
     </>
   );

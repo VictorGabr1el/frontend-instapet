@@ -1,15 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
-import { AuthContext } from "../../context";
+import { AuthContext, StateContext } from "../../context";
+import { useLoading, useInProgress } from "../";
+import { usePreview } from "../../hooks";
 import { Api } from "../../services/Api";
 import { Resize } from "../../utils";
-import { usePreview } from "../../hooks";
 
-import { useLoading, useInProgress } from "../";
 import style from "./EditPublication.module.css";
 
 export const EditPublication = (props) => {
   const { updateDataPage } = useContext(AuthContext);
+  const { OpenModalError } = useContext(StateContext);
   const { Loading, loading, setLoading } = useLoading();
   const { InProgress, IsInProgress } = useInProgress();
   const { InputImg, image } = usePreview();
@@ -23,7 +24,9 @@ export const EditPublication = (props) => {
         setPost(response.data);
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        return OpenModalError(true, error);
+      });
   }, []);
 
   async function Edit(e) {
@@ -40,42 +43,46 @@ export const EditPublication = (props) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: { legend },
+        data: { img: post.img_post, legend },
       })
         .then(() => {
           updateDataPage();
           IsInProgress(false);
           props.btn();
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
           IsInProgress(false);
+          return OpenModalError(true, error);
         });
     } else {
-      const ImgUrl = await Resize(image);
+      Resize(image)
+        .then((downloadURL) => {
+          const data = {
+            legend: legend.length > 0 ? legend : post.legend,
+            img: downloadURL,
+          };
 
-      const data = {
-        legend: legend !== post.legend && legend,
-        ImgUrl,
-      };
-      console.log(data);
-
-      Api({
-        url: `/post/${props.PostId}`,
-        method: "put",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: { data },
-      })
-        .then(() => {
-          updateDataPage();
-          IsInProgress(false);
-          props.btn();
+          Api({
+            url: `/post/${props.PostId}`,
+            method: "put",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: { ...data },
+          })
+            .then(() => {
+              updateDataPage();
+              IsInProgress(false);
+              props.btn();
+            })
+            .catch((error) => {
+              IsInProgress(false);
+              return OpenModalError(true, error);
+            });
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
           IsInProgress(false);
+          return OpenModalError(true, error);
         });
     }
   }

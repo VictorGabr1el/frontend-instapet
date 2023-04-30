@@ -1,23 +1,47 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { AuthContext } from "../../context";
+import { ModalError } from "../../components";
 
+import { inprogress } from "../../assents/images";
 import style from "./Login.module.css";
 
 export const Login = () => {
-  const { Login, signed } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { Login, signed, errorMessage } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-  const userLogin = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (errorMessage) {
+      setLoading(false);
+      setShowModal(true);
+    }
+  }, [errorMessage]);
+
+  function userLogin(event) {
+    event.preventDefault();
+    setLoading(true);
     const data = {
-      email,
-      password,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
     };
 
-    await Login(data);
+    Login(data);
+  }
+
+  const Entering = () => {
+    return (
+      <div className={style.div_inprogress}>
+        <img
+          className={style.img_inprogress}
+          src={inprogress}
+          alt="progress icon"
+        />
+      </div>
+    );
   };
 
   return !signed ? (
@@ -35,7 +59,8 @@ export const Login = () => {
                 <input
                   name="email"
                   type="email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="off"
+                  ref={emailRef}
                   required={true}
                   className={style.input}
                 />
@@ -45,7 +70,7 @@ export const Login = () => {
                 <input
                   type="password"
                   name="password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  ref={passwordRef}
                   required={true}
                   className={style.input}
                 />
@@ -65,6 +90,14 @@ export const Login = () => {
           </div>
         </main>
       </div>
+      {loading && <Entering />}
+      {showModal && (
+        <ModalError
+          style={{ background: "black", opacity: "15%" }}
+          errorMessage={errorMessage}
+          btnClose={() => setShowModal(false)}
+        />
+      )}
     </>
   ) : (
     <Navigate to={"/home"} />

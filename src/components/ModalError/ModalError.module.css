@@ -1,0 +1,53 @@
+.ModalError {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div_main {
+  width: 325px;
+  height: 325px;
+  background: white;
+  z-index: 7;
+  border-radius: 8px;
+  display: flex;
+  padding: 30px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn_close {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.div_error_icon {
+  background: red;
+  padding: 16px;
+  border-radius: 100%;
+}
+
+.icon_error {
+  width: 30px;
+  vertical-align: bottom;
+}
+
+.message_error {
+  margin: 55px auto auto auto;
+}

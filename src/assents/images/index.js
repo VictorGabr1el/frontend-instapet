@@ -12,6 +12,7 @@ import signout from "./signout.svg";
 import close from "./close.svg";
 import inprogress from "./Frame.svg";
 import search from "./search.svg";
+import erro from "./erro.svg";
 
 export {
   Add,
@@ -28,4 +29,5 @@ export {
   search,
   close,
   inprogress,
+  erro,
 };

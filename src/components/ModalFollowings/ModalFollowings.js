@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { AuthContext } from "../../context";
+import { AuthContext, StateContext } from "../../context";
 import { Api } from "../../services/Api";
-
 import { useLoading, Suggestions } from "..";
+
 import style from "./ModalFollowings.module.css";
 
 export const ModalFollowings = (props) => {
   const { currentUser } = useContext(AuthContext);
+  const { OpenModalError } = useContext(StateContext);
   const { Loading, loading, setLoading } = useLoading();
 
   const { userId } = useParams();
@@ -20,7 +21,9 @@ export const ModalFollowings = (props) => {
         setFollowings(response.data);
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        return OpenModalError(error);
+      });
   }, [userId]);
 
   return loading ? (

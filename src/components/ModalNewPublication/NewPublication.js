@@ -1,8 +1,7 @@
 import { useState, useRef, useContext } from "react";
-
 import { AuthContext, StateContext } from "../../context";
 import { Api } from "../../services/Api";
-import { Resize } from "../../utils/Resize/Resize.js";
+import { Resize } from "../../utils";
 import { usePreview } from "../../hooks";
 
 import { inprogress } from "../../assents/images";
@@ -10,7 +9,7 @@ import style from "./NewPublication.module.css";
 
 export const NewPublication = () => {
   const { updateDataPage } = useContext(AuthContext);
-  const { OpenModalNewPublication } = useContext(StateContext);
+  const { OpenModalNewPublication, OpenModalError } = useContext(StateContext);
   const { InputImg, image } = usePreview();
 
   const [sendingPublication, setSendingPublication] = useState(false);
@@ -18,38 +17,35 @@ export const NewPublication = () => {
 
   function Submit(e) {
     e.preventDefault();
-
     setSendingPublication(true);
+    const token = localStorage.getItem("@Auth:token");
 
     Resize(image)
       .then((downloadURL) => {
-        const data = {
-          img: downloadURL,
-          legend: legendRef.current.value,
-        };
-
-        const token = localStorage.getItem("@Auth:token");
-
-        Api.post("/post", data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((response) => {
+        Api.post(
+          "/post",
+          { img: downloadURL, legend: legendRef.current.value },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+          .then(() => {
             updateDataPage();
             setSendingPublication(false);
             OpenModalNewPublication(false);
           })
           .catch((error) => {
             setSendingPublication(false);
+            OpenModalError(true, error);
             OpenModalNewPublication(false);
-            return error;
+            return;
           });
       })
       .catch((error) => {
         setSendingPublication(false);
-        OpenModalNewPublication(false);
-        return error;
+        return OpenModalError(true, error);
       });
   }
 
@@ -71,6 +67,7 @@ export const NewPublication = () => {
         <div className={style.form_input_legend}>
           <input
             className={style.legend}
+            autoComplete="off"
             type="text"
             name="legend"
             ref={legendRef}
@@ -89,7 +86,12 @@ export const NewPublication = () => {
       </form>
       {sendingPublication && (
         <div className={style.sending_publication}>
-          <img className={style.sending_publication_img} src={inprogress} />
+          <img
+            className={style.sending_publication_img}
+            er
+            alt="progress icon"
+            src={inprogress}
+          />
         </div>
       )}
     </div>

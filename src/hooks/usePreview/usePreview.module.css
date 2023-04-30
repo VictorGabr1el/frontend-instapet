@@ -23,3 +23,7 @@
   background-size: 50px;
   cursor: pointer;
 }
+
+.btnNewImg:active {
+  background-color: "currentcolor";
+}

@@ -1,47 +1,56 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext, StateContext } from "../../context";
 import { usePreview } from "../../hooks/index.js";
 import { Resize } from "../../utils/index.js";
+import { ModalError } from "../../components/index.js";
 
-import { inprogress } from "../../assents/images/index.js";
+import { inprogress } from "../../assents/images";
 import style from "./Signup.module.css";
 
 export const Signup = () => {
-  const { signed, Signup } = useContext(AuthContext);
+  const { signed, Signup, errorMessage } = useContext(AuthContext);
+  const { OpenModalError } = useContext(StateContext);
   const { InputImg, image } = usePreview();
 
+  const [showModal, setShowModal] = useState(false);
   const [registering, setRegistering] = useState(false);
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
+  const nameRef = useRef();
+  const usernameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPassRef = useRef();
 
-  const newUser = (e) => {
+  useEffect(() => {
+    if (errorMessage) {
+      setShowModal(true);
+    }
+  }, [errorMessage]);
+
+  const RegisterNewUser = (e) => {
     e.preventDefault();
-
     setRegistering(true);
 
     Resize(image)
       .then((downloadURL) => {
         const data = {
-          name,
-          username,
-          email,
+          name: nameRef.current.value,
+          username: usernameRef.current.value,
+          email: emailRef.current.value,
           avatar: downloadURL,
-          password,
-          confirmPass,
+          password: passwordRef.current.value,
+          confirmPass: confirmPassRef.current.value,
         };
 
-        Signup(data);
+        console.log(data);
 
+        Signup(data);
         setRegistering(false);
       })
       .catch((error) => {
         setRegistering(false);
-        return error;
+        return OpenModalError(true, error);
       });
   };
 
@@ -50,7 +59,7 @@ export const Signup = () => {
       <>
         <main className={style.main}>
           <div className={style.container}>
-            <form className={style.form} onSubmit={newUser}>
+            <form className={style.form} onSubmit={RegisterNewUser}>
               <InputImg
                 style={{
                   width: "120px",
@@ -67,8 +76,9 @@ export const Signup = () => {
                 <label className={style.label}>Nome</label>
                 <input
                   type="text"
+                  autoComplete="off"
                   className={style.input}
-                  onChange={(e) => setName(e.target.value)}
+                  ref={nameRef}
                   maxLength={40}
                   minLength={2}
                   required={true}
@@ -79,10 +89,11 @@ export const Signup = () => {
                 <label className={style.label}>Username</label>
                 <input
                   type="text"
+                  autoComplete="off"
                   className={style.input}
                   minLength={4}
                   maxLength={20}
-                  onChange={(e) => setUsername(e.target.value)}
+                  ref={usernameRef}
                   required={true}
                   name="username"
                 />
@@ -91,7 +102,9 @@ export const Signup = () => {
                 <label className={style.label}>Email</label>
                 <input
                   type="email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="off"
+                  maxLength={50}
+                  ref={emailRef}
                   className={style.input}
                   required={true}
                   name="email"
@@ -101,8 +114,9 @@ export const Signup = () => {
                 <label className={style.label}>Senha</label>
                 <input
                   type="password"
+                  maxLength={40}
                   className={style.input}
-                  onChange={(e) => setPassword(e.target.value)}
+                  ref={passwordRef}
                   required={true}
                   name="password"
                 />
@@ -113,10 +127,10 @@ export const Signup = () => {
                 </label>
                 <input
                   type="password"
-                  onChange={(e) => setConfirmPass(e.target.value)}
+                  ref={confirmPassRef}
                   className={style.input}
                   required={true}
-                  name="confirmPass"
+                  name="confirm password"
                 />
               </div>
 
@@ -131,9 +145,20 @@ export const Signup = () => {
           {registering && (
             <>
               <div className={style.div_inprogress}>
-                <img className={style.img_inprogress} src={inprogress} />
+                <img
+                  className={style.img_inprogress}
+                  src={inprogress}
+                  alt="progress icon"
+                />
               </div>
             </>
+          )}
+          {showModal && (
+            <ModalError
+              style={{ background: "black", opacity: "20%" }}
+              errorMessage={errorMessage}
+              btnClose={() => setShowModal(false)}
+            />
           )}
         </main>
       </>

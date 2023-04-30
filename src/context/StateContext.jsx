@@ -6,6 +6,8 @@ export const StateProvider = ({ children }) => {
   const [isVisibleFullPost, setIsVisibleFullPost] = useState(false);
   const [isVisibleNewPublication, setIsVisibleNewPublication] = useState(false);
   const [isVisibleModifyPost, setIsVisibleModifyPost] = useState(false);
+  const [isVisibleModalError, setIsVisibleModalError] = useState(false);
+  const [error, setError] = useState("");
 
   const body = document.querySelector("body");
 
@@ -19,7 +21,7 @@ export const StateProvider = ({ children }) => {
     }
   }
 
-  const OpenModalNewPublication = (boolean) => {
+  function OpenModalNewPublication(boolean) {
     if (boolean === true) {
       body.style.overflow = "hidden";
       setIsVisibleNewPublication(boolean);
@@ -27,11 +29,19 @@ export const StateProvider = ({ children }) => {
       setIsVisibleNewPublication(boolean);
       body.style.overflow = "";
     }
-  };
+  }
 
-  const OpenModalModifyPost = (boolean) => {
+  function OpenModalModifyPost(boolean) {
     setIsVisibleModifyPost(boolean);
-  };
+  }
+
+  function OpenModalError(boolean, message) {
+    setError(message);
+    setIsVisibleModalError(boolean);
+    setTimeout(() => {
+      setIsVisibleModalError(false);
+    }, 5000);
+  }
 
   return (
     <StateContext.Provider
@@ -42,6 +52,9 @@ export const StateProvider = ({ children }) => {
         isVisibleNewPublication,
         OpenModalModifyPost,
         isVisibleModifyPost,
+        OpenModalError,
+        isVisibleModalError,
+        error,
       }}
     >
       {children}

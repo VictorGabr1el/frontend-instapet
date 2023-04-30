@@ -16,7 +16,7 @@ import style from "./User.module.css";
 
 export const User = () => {
   const { currentUser, newData } = useContext(AuthContext);
-  const { OpenModalFullPost } = useContext(StateContext);
+  const { OpenModalFullPost, OpenModalError } = useContext(StateContext);
   const { Loading, loading, setLoading } = useLoading();
   const { userId } = useParams();
 
@@ -26,10 +26,15 @@ export const User = () => {
   const [showModalFollowings, setShowModalFollowings] = useState(false);
 
   useEffect(() => {
-    Api.get(`/user/${userId}`).then((response) => {
-      setUserPage(response.data);
-      setLoading(false);
-    });
+    Api.get(`/user/${userId}`)
+      .then((response) => {
+        setUserPage(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        OpenModalError(true, error);
+      });
   }, [newData, userId]);
 
   return loading ? (
@@ -86,6 +91,9 @@ export const User = () => {
               </ul>
               <div>
                 <span className={style.full_name}>{userPage.name}</span>
+              </div>
+              <div className={style.div_biograph}>
+                <p className={style.biograph}>{userPage.biograph}</p>
               </div>
             </div>
           </div>

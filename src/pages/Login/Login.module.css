@@ -152,3 +152,29 @@
   cursor: pointer;
   text-decoration: none;
 }
+
+.div_inprogress {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  background: black;
+  opacity: 55%;
+  z-index: 4;
+  transform: translate(0px, -100%);
+}
+
+.img_inprogress {
+  width: 35px;
+  height: 35px;
+  animation: loading 1s linear infinite 0ms;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

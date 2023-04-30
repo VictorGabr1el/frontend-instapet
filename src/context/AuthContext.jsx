@@ -4,9 +4,30 @@ import { Api } from "../services";
 
 export const AuthContext = createContext();
 
+const user = {
+  id: 0,
+  name: "",
+  avatar: "",
+  username: "",
+  biograph: "",
+  Followings: [
+    {
+      id: 0,
+      followingId: 0,
+    },
+  ],
+  Followers: [
+    {
+      id: 0,
+      followersId: 0,
+    },
+  ],
+};
+
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(true);
+  const [currentUser, setCurrentUser] = useState(user);
   const [newData, setNewData] = useState(false);
+  const [errorMessage, setErrorMesage] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("@Auth:token");
@@ -22,27 +43,26 @@ export const AuthProvider = ({ children }) => {
         .catch((error) => {
           setCurrentUser(false);
           localStorage.clear();
-          console.log(error);
-          return;
+          return setErrorMesage(error);
         });
     } else {
       return setCurrentUser(false);
     }
   }, [newData]);
 
-  const Login = async ({ email, password }) => {
+  const Login = ({ email, password }) => {
     Api.post("/login", { email, password })
       .then((response) => {
-        console.log(response);
         setCurrentUser(response.data.user);
         localStorage.setItem("@Auth:token", response.data.token);
+        return redirect("/home");
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        return setErrorMesage(error);
       });
   };
 
-  const Signup = async (data) => {
+  const Signup = (data) => {
     Api.post("/register", data)
       .then((response) => {
         setCurrentUser(response.data.user);
@@ -54,9 +74,8 @@ export const AuthProvider = ({ children }) => {
 
         return redirect("/home");
       })
-      .catch((response) => {
-        console.log(response);
-        return alert(response.data);
+      .catch((error) => {
+        return setErrorMesage(error);
       });
   };
 
@@ -76,6 +95,7 @@ export const AuthProvider = ({ children }) => {
         updateDataPage: () => setNewData(!newData),
         signed: !!currentUser,
         newData,
+        errorMessage,
       }}
     >
       {children}

@@ -24,8 +24,6 @@ export const Resize = async (image) => {
 
   const width = await getImgSize(image).then((size) => size);
 
-  console.log(width);
-
   function resizeImage(source, options) {
     return loadImage(document.createElement("img"), source).then(function (
       image
@@ -43,8 +41,6 @@ export const Resize = async (image) => {
         .getContext("2d")
         .drawImage(image, 0, 0, canvas.width, canvas.height);
 
-      console.log(canvas);
-
       return new Promise(function (resolve) {
         canvas.toBlob(resolve, "image/webp");
 
@@ -56,7 +52,6 @@ export const Resize = async (image) => {
   function loadImage(img, source) {
     return new Promise((resolve, reject) => {
       img.src = source;
-      console.log(img);
       img.completed
         ? resolve(img)
         : img.addEventListener("load", function () {
@@ -73,14 +68,10 @@ export const Resize = async (image) => {
       uploadBytes(storageRef, blob).then(() => {
         getDownloadURL(storageRef)
           .then((downloadURL) => {
-            if (!downloadURL) {
-              return console.error("erro");
-            } else {
-              return resolve(downloadURL);
-            }
+            return resolve(downloadURL);
           })
           .catch((error) => {
-            console.log(error);
+            return error;
           });
       });
     });

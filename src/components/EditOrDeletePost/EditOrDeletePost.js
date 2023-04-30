@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 
-import { AuthContext } from "../../context";
+import { AuthContext, StateContext } from "../../context";
 import { Api } from "../../services/Api";
 
 import { EditPublication } from "../ModalEditPublication";
@@ -9,6 +9,7 @@ import style from "./EditOrDeletePost.module.css";
 
 export const EditOrDeletePost = (props) => {
   const { updateDataPage } = useContext(AuthContext);
+  const { OpenModalError } = useContext(StateContext);
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const [isOpenModalDeletePost, setIsOpenModalDeletePost] = useState(false);
   const [inProgressVisivle, setInProgressVisible] = useState(false);
@@ -92,10 +93,10 @@ export const EditOrDeletePost = (props) => {
             setInProgressVisible(false);
             updateDataPage();
           })
-          .catch((e) => {
-            console.log(e);
+          .catch((error) => {
             body.style.overflow = "";
             setInProgressVisible(false);
+            OpenModalError(true, error);
           });
       }
     }
