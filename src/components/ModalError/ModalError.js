@@ -16,7 +16,7 @@ export const ModalError = (props) => {
         <h3 className={style.message_error}>
           {props.errorMessage
             ? props.errorMessage.response.data.message
-            : error}
+            : error.response.data.message}
         </h3>
       </div>
       <button

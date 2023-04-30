@@ -10,6 +10,40 @@ import style from "./Suggestions.module.css";
 
 export const Suggestions = (props) => {
   const { currentUser } = useContext(AuthContext);
+
+  return (
+    <>
+      <li className={style.new_suggestions}>
+        <div>
+          <Link
+            to={`/user/${props.userId}`}
+            onClick={props.btn}
+            className={style.user_suggestions}
+          >
+            <img
+              className={style.avatar}
+              style={props.avatarStyle}
+              src={props.avatar}
+              alt=""
+            />
+            <p style={props.usenameStyle}>{props.username}</p>
+          </Link>
+        </div>
+        {currentUser.id !== props.userId && (
+          <BtnFollowUnFollow
+            text={props.text}
+            btnStyle={props.btnStyle}
+            verifyIfFollowing={props.verifyIfFollowing}
+            userId={props.userId}
+          />
+        )}
+      </li>
+    </>
+  );
+};
+
+export const BtnFollowUnFollow = (props) => {
+  const { currentUser, updateDataPage } = useContext(AuthContext);
   const { OpenModalError } = useContext(StateContext);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState(props.text);
@@ -40,6 +74,7 @@ export const Suggestions = (props) => {
       .then(() => {
         setLoading(false);
         setText("seguindo");
+        updateDataPage();
       })
       .catch((error) => {
         setLoading(false);
@@ -57,6 +92,7 @@ export const Suggestions = (props) => {
       .then(() => {
         setLoading(false);
         setText("seguir");
+        updateDataPage();
       })
       .catch((error) => {
         setLoading(false);
@@ -65,39 +101,18 @@ export const Suggestions = (props) => {
   }
 
   return (
-    <>
-      <li className={style.new_suggestions}>
-        <div>
-          <Link
-            to={`/user/${props.userId}`}
-            onClick={props.btn}
-            className={style.user_suggestions}
-          >
-            <img
-              className={style.avatar}
-              style={props.avatarStyle}
-              src={props.avatar}
-              alt=""
-            />
-            <p style={props.usenameStyle}>{props.username}</p>
-          </Link>
-        </div>
-        {currentUser.id !== props.userId && (
-          <div className={style.div_display_flex}>
-            {loading === true ? (
-              <img alt="icon" className={style.in_progress} src={inprogress} />
-            ) : (
-              <button
-                style={props.btnStyle}
-                className={style.btn_follow}
-                onClick={text === "seguir" ? Follow : unFollow}
-              >
-                {text}
-              </button>
-            )}
-          </div>
-        )}
-      </li>
-    </>
+    <div className={style.div_display_flex}>
+      {loading === true ? (
+        <img alt="icon" className={style.in_progress} src={inprogress} />
+      ) : (
+        <button
+          style={props.btnStyle}
+          className={style.btn_follow}
+          onClick={text === "seguir" ? Follow : unFollow}
+        >
+          {text}
+        </button>
+      )}
+    </div>
   );
 };

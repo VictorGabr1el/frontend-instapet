@@ -2,6 +2,13 @@
   margin-top: 90px;
 }
 
+.userNotFound {
+  text-align: center;
+  margin-top: 50px;
+  font-size: x-large;
+  color: #3c3c3c;
+}
+
 .section {
   max-width: 950px;
   margin-inline: auto;
@@ -48,7 +55,7 @@
 
 .btn_edit_perfil {
   font-weight: 500;
-  padding: 4px 9px;
+  padding: 6px 9px;
   background: white;
   border: solid 1px #979797;
   border-radius: 4px;

@@ -88,7 +88,6 @@ export const NewPublication = () => {
         <div className={style.sending_publication}>
           <img
             className={style.sending_publication_img}
-            er
             alt="progress icon"
             src={inprogress}
           />
