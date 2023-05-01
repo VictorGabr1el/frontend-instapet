@@ -9,7 +9,7 @@
 .user_publication {
   display: flex;
   align-items: center;
-  padding: 6px 10px 6px 6px;
+  padding: 10px 10px 10px 8px;
   box-sizing: border-box;
   justify-content: space-between;
 }
@@ -21,13 +21,14 @@
 
 .user_avatar {
   object-fit: cover;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 100%;
   margin-right: 10px;
   background-image: url("../../assents/images/avatar-person.svg");
   border: solid 1px lightslategrey;
   background-repeat: no-repeat;
+  vertical-align: bottom;
 }
 
 .publication_username {
