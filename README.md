@@ -5,6 +5,9 @@ Este é um projeto de Rede Social direcionada para amantes de pets.
 * Tecnologias utilizadas
 * React, Firebase e axios
 
+consome uma api em NodeJS feita por mim também.
+Repositório API: https://github.com/VictorGabr1el/backend-instapet
+
 Site: https://frontend-instapet.vercel.app/
 
 ![image](https://user-images.githubusercontent.com/100538332/235761627-3b0528e5-b886-4826-85cd-fdeec1ebe325.png)
