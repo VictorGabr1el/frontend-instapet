@@ -38,7 +38,7 @@ export const ModalFollowers = (props) => {
           </div>
           <div className={style.div_followers}>
             <ul className={style.Followers}>
-              {followers.length !== 0 ? (
+              {followers.length > 0 ? (
                 followers.map((f) => (
                   <Suggestions
                     key={f.id}
