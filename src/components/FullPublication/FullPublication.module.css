@@ -74,10 +74,7 @@
   border: solid 1px lightslategrey;
   background-repeat: no-repeat;
   object-fit: cover;
-}
-
-.post_user P {
-  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .div_interactions {
